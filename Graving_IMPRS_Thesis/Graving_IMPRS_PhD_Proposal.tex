@@ -13,7 +13,8 @@
 \usepackage{relsize}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 \usepackage[toc,page]{appendix}
-
+\setcounter{secnumdepth}{0}
+\usepackage{array}
 
 \title{
 	\LARGE \textbf{Quantitative Methods} \\
@@ -45,29 +46,18 @@
 	\pagenumbering{gobble}
     \newpage
 	\tableofcontents
-	\pagenumbering{roman}
 	\newpage
 	\label{listoffigures}
 	\listoffigures
 	\newpage
+	\setcounter{page}{1}
+	\pagenumbering{roman}
+	\section{Summary}
+	\newpage
+	\section{Zussamenfassung}
+	\newpage
 	\pagenumbering{arabic}
-	\section{Summary of Proposal}
-	\par
-	Here I propose to address core questions related to how sensory information and internal state of individuals influence the collective movement dynamics of migrating animal groups. I will use marching behavior in juvenile desert locusts (\textit{Schistocerca gregaria}) as a model system.
-	
-	\paragraph{I will address two broad questions:}
-	\begin{enumerate}
-		\item How do sensory information networks drive individual decision-making and group-level movement dynamics?
-		\item How do individual differences in informational, physiological, and behavioral state influence movement dynamics? 
-	\end{enumerate}
-
-	\paragraph{Within the scope of these questions I will address the following aims:}
-	\begin{enumerate}
-		\item Determine how visual and tactile sensory information networks influence individual decision-making and  how individual decisions influence group-level dynamics
-		\item Resolve how nutritional state influences sensory perception, individual behavior, and collective movement
-		\item Understand how neurophysiological dynamics of the visual system such as sensitivity and habituation affect perception and decision-making of individuals and collectives
-	\end{enumerate}
-	\section{General Relevance}
+	\section{General Introduction}
 	\par
 	Understanding how organisms process sensory information in the brain to produce behavior is one of the most exciting scientific problems of the 21st century \citep{anderson2014competho}. More specifically, revealing the sensory and behavioral mechanisms by which animal groups successfully migrate long distances has been identified as an important scientific challenge \citep{kennedy2005don,miller2005biological}. Collective behaviors like group migration can also serve as behavioral models for the study of sensory system integration and decision-making, an unresolved core issue in neuroscience and systems biology \citep{gold2007neural}. Moreover, understanding the role of sensory processing in social animal groups can help to further explain the relationships between individual and group-level decision-making, a key challenge in the field of collective animal behavior \citep{croft2008exploring,couzin2007collective}. Previous work has shown that the inclusion of sensory information in models describing collective behavior has vastly improved our ability to predict information flow through groups and collective decision-making \citep{bazazi2008collective,strandburg2013visual,strandburg2017habitat,rosenthal2015network,twomey2016vision}, yet questions related to how sensory information drives these seemingly complex phenomena remain predominantly unexplored.
 	\par
@@ -79,94 +69,205 @@
 	\par
 	During the course of my PhD, I propose to examine the interacting roles of sensory information and internal state on the dynamics of individual and collective behavior. Using machine learning and information-theoretic methods, I plan to test key assumptions about the behavior of locust swarms through rigorous, data-driven approaches. The results from these projects will provide new understanding of how locust swarms are formed and maintained over time and will inform next-generation behavioral models for predicting and preventing future outbreaks of locust plagues.
 
-	\section{Project Description}
-	\subsection[Sensory Information Networks]{Sensory Information Networks as Drivers of Individual Movement and Group Migration} \label{project1}
-	\paragraph{Objective:} 
-	Use computational methods to precisely understand the sensory and behavioral mechanisms driving individual decision-making and group movement
-	\subsubsection{Background}
+\newpage 
+	\section[Chapter 1: An automated barcode tracking system]{\LARGE{Chapter 1:} \\ \Large{An automated barcode tracking system for behavioural studies in birds}}
+	\vspace{5mm}
+	\textbf{Gustavo Alarcón‐Nieto*, Jacob M. Graving*, James A. Klarevas‐Irby*, Adriana A. Maldonado‐Chaparro, Inge Mueller, Damien R. Farine} \\
 
-	Sensory information networks mediate the coordinated group movements of schooling fish, flocking birds, and swarming insects \citep{couzin2007collective,bazazi2008collective,strandburg2013visual,strandburg2017habitat,rosenthal2015network}, and revealing the networks underlying these group dynamics is a core issue in the study of collective behavior \citep{croft2008exploring,couzin2007collective}. In nutrient-deprived conditions, cannibalism drives the ordered movement of marching juvenile locusts. Under such conditions, individuals make movement decisions based on the threat of being cannibalized from behind and the motivation to cannibalize others ahead \citep{bazazi2008collective,romanczuk2009collective,bazazi2011nutritional,guttal2012cannibalism}. The movement of individuals within these marching bands generates social information in the form of \textit{sensory cues}. Others in the group perceive these cues and use this information to make movement decisions. These cues are \textit{multimodal}, consisting of both a visual component---the motion of nearby neighbors impinging on the retina---and a tactile component---aggressive touching and biting of the abdomen and other body parts \citep{bazazi2008collective}. These separate channels provide individuals with information about their neighbors, which they presumably \textit{integrate} when making movement decisions. 
-	\par
-	Both visual and tactile information play important roles in locust marching behavior. For example, blocking the forward or rear visual field with black acrylic paint reduces group movement, and blocking the rear visual field produces similar effects to blocking the \textit{entire} visual field \citep{bazazi2008collective}. In addition to vision, tactile information is an important driver of marching behavior. For example, denervating the abdomen increases rates of cannibalism and decreases group movement. Additionally, tactile activation of immobile locusts is mediated specifically through abdominal contact and  not lateral or anterior contact. Moreover, denervating the abdomen has nearly identical effects on group movement to blocking the rear visual field \citep{bazazi2008collective}. The similarity of these effects suggests that these modes of information are comparable in their level of importance and may provide individuals with information \textit{redundancy} and \textit{degeneracy}, a key hypothesis in the study of multimodal decision-making \citep{hebets2016systems,stein2012new}. Presumably individuals with denervated abdomens are less capable of detecting and escaping from neighbors trying to cannibalize them. This decreased detection ability suggests that visual information is insufficient, and to successfully avoid being cannibalized, tactile information is necessary.
-	\par
-	In the past, visual and tactile information channels have been studied separately, in a unimodal context \citep{bazazi2008collective}, but their combined, multimodal influence on decision-making remains uninvestigated. Additionally, due to methodological limitations, previous work on this topic has primarily examined the influence of these sensory modalities on group-level movement and not on the movement decisions of individuals. This work also relied on rather crude manipulation of the sensory systems involved. Furthermore, it is still unclear what visual features individuals attend to and what rules they follow when making movement decisions. Here I propose to investigate the dynamics of how individuals integrate multimodal information channels for decision-making and subsequently how individual decisions influence group-level movement through multimodal information networks. Rather than directly manipulating the sensory systems of individuals I will instead directly measure sensory inputs and map the relationship between sensory inputs and behavioral outputs. I will then describe the collective dynamics of locust swarms at both the individual and network level. 
-	
+	\subsection{Abstract}
+	\begin{enumerate}
+	    \item 	Recent advances in technology allow researchers to automate the measurement of animal behaviour. These methods have multiple advantages over direct observations and manual data input as they reduce bias related to human perception and fatigue, and deliver more extensive and complete datasets that enhance statistical power. One major challenge that automation can overcome is the observation of many individuals at once, enabling whole‐group or whole‐population tracking.
+        \item We provide a detailed description of an automated system for tracking birds. Our system uses printed, machine‐readable codes mounted on backpacks. This simple, yet robust, tagging system can be used simultaneously on multiple individuals to provide data on bird identity, position and directionality. Furthermore, because the backpacks are printed on paper, they are very lightweight. We show that our method is reliable, relatively easy to implement and monitor, and with proper handling, has proved to be safe for the birds over long periods of time.
+        \item     We describe the deployment procedure of this system for a captive population of songbirds. We test different camera options, and discuss their advantages and disadvantages. In particular, we highlight how using single‐board computers to control the frequency and duration of image capture makes this system affordable and adaptable to a range of study systems and research questions.
+        \item     The ability to automate the measurement of individual positions has the potential to significantly increase the power of both observational and experimental studies. The system can capture both detailed interactions (using video recordings) and repeated observations (e.g. once per second for the entire day) of individuals over long timescales (months or potentially years). This approach opens the door to tracking life‐long relationships among individuals, while also capturing fine‐scale differences in behaviour.
+	\end{enumerate}
+    \vspace{1mm}
+	\smaller{*equal contribution}
+
+
+\newpage
+\normalsize
+\subsection{Introduction}
+    Studying behaviour is central to addressing a broad range of research questions in the fields of neurobiology, ecology and evolutionary biology. Nevertheless, collecting accurate and complete behavioural data remains a challenging task (Crall, Gravish, Mountcastle, & Combes, 2015). Although direct observation is still an important method for gathering data, a variety of automated methods are now frequently used to accelerate data collection and reduce the effects of human intervention. Video recording has become common practice for studying both captive (Ihle, Kempenaers, & Forstmeier, 2015; Nagy et al., 2013; Perez‐Escudero, Vicente‐Page, Hinz, Arganda, & de Polavieja, 2014; Rojas Mora, Forstmeier, & Fusani, 2014; Togasaki et al., 2005) and wild organisms (Scheibe, Eichhorn, Wiesmayr, Schonert, & Krone, 2008; Togasaki et al., 2005). However, manually measuring behaviour from photos or videos is extremely time consuming and may still have the same limitations as direct observations, such as cognitive bias and fatigue. Manually identifying individuals is also challenging, which limits the use of this approach to species with individually distinct features (Perez‐Escudero et al., 2014). Recent advances in automated, image‐based tracking methods have solved these issues in a variety of ways. Unfortunately, many of these solutions rely on complex, computationally intense algorithms, often require keeping animals in simplistic, unnatural environments, and may not reliably preserve identities over long periods of time or across contexts (Perez‐Escudero et al., 2014). One alternative, which has been explored in a few recent studies (e.g. Mersch, Crespi, & Kelle, 2013; Nagy et al., 2013) is to fit machine‐readable tags to individuals, allowing for faster, more reliable tracking. This method offers exciting new opportunities, such as studying social behaviour in complex, naturalistic environments, over long timescales, and across multiple behavioural contexts. Here, we provide details of how to implement such a system for songbirds.
+
+    The development of methods for tracking individuals plays an important role in our ability to study animals. In addition to the limitations of human observers to process multiple streams of information simultaneously (such as the actions of several individuals in a group), many studies still rely on using relatively small datasets to estimate broad patterns. One example is the use of focal follows, where a single individual is tracked for a period and all of its interactions with others are recorded. While doing so, all the interactions among others are not recorded. This means that even with very intensive monitoring, the maximum number of dyadic observations that can be made is N − 1, where N is the number of individuals present. Sparseness in the resulting datasets can impact the ability to successfully test hypotheses (Farine & Strandburg‐Peshkin, 2015). Furthermore, these studies can suffer from temporal autocorrelation (most data on a focal is collected within a short period of time; Whitehead, 2008). Studies that cannot extract data with sufficient resolution also lead to concerns about the use of animals in research if they cannot robustly test the hypothesis, as sparse data collection can heighten the rates of true and false positives.
+    
+    Multiple technologies enable more detailed tracking of individuals than what is possible by manual observation. For example, modern studies of migration and habitat‐use commonly rely on satellite and radio tags to estimate individual position over time (e.g. Abedi‐Lartey, Dechmann, Wikelski, Scharf, & Fahr, 2016; Klaassen et al., 2014; Rotics et al., 2017). When combined with accelerometers and other sensors, these tags can also measure fine‐scale behaviour and physiology (Wang, Smith, & Wilmers, 2017). Recent developments even allow for collecting high‐resolution trajectory data over large areas (Kays, Crofoot, Jetz, & Wikelski, 2015), which can be used to infer social interactions in mobile, group‐living species (Strandburg‐Peshkin, Farine, Couzin, & Crofoot, 2015). Despite their advantages, such systems are generally very costly and the tags are often too heavy for many species to carry, which limits the number of individuals that can be tracked and the size of the animals that can be studied.
+    
+    An increasingly common method for tracking smaller animals is Passive Integrated Transponder (PIT) tags (Boarman, Beigel, Goodlett, & Sazaki, 1998). These tags provide a unique identity when in range of a radio frequency identification antenna. PIT tags are lightweight, inexpensive and require no battery power, enabling large‐scale deployment over long periods of time, and they can be used in both laboratory (Boogert, Farine, & Spencer, 2014; Farine, Spencer, & Boogert, 2015; Griffith, Holleley, Mariette, Pryke, & Svedin, 2010; Weissbrod et al., 2013) and field conditions (Adelman, Moyers, Farine, & Hawley, 2015; Aplin et al., 2015; Bonter & Bridge, 2011; Broderick & Godley, 1999; Farine, Aplin, Garroway, Mann, & Sheldon, 2014; König et al., 2015; Mariette et al., 2011; Steinmeyer, Mueller, & Kempenaers, 2013). Although many individuals can be tagged, the antennas can only detect one individual at a time and only at fixed focal locations, such as nest boxes (Santema, Schlicht, Schlicht, & Kempenaers, 2017; Schlicht, Valcu, & Kempenaers, 2015), feeders (Firth, Sheldon, & Farine, 2016), or puzzle‐boxes (Aplin et al., 2015), which limits resolution for assessing interactions among individuals.
+    
+    Machine vision hardware and software allow for automated, image‐based tracking of animals (Dell et al., 2014; Jolles, Boogert, Sridhar, Couzin, & Manica, 2017; Perez‐Escudero et al., 2014; Rosenthal, Twomey, Hartnett, Wub, & Couzin, 2015). However, when tracking groups of animals, maintaining individual identities can be difficult (Perez‐Escudero et al., 2014). Some algorithms can identify unmarked individuals (e.g. Berger‐Wolf et al., 2015), even using subtle differences in coloration (e.g. Perez‐Escudero et al., 2014), although these methods are less effective if such features change over time (e.g. bird feathers move). Several studies on social insects have used machine‐recognizable 2D barcodes (hereafter barcodes; Crall et al., 2015; Greenwald, Segre, & Feinerman, 2015; Mersch et al., 2013) with a unique pattern of black and white squares that can be identified and matched to a dictionary of known codes. Insects are good models for using such markers because these barcodes can be directly glued onto their bodies, and they can be applied to hundreds of individuals simultaneously because the tags are inexpensive to make (using only waterproof paper). Similar approaches have been used on birds (Nagy et al., 2013), but few details are available on their implementation and long‐term impact on individuals.
+    
+    Barcodes represent a major advance in data quality at a comparatively low cost, enabling researchers to simultaneously collect data from multiple individuals, assess interactions and associations in different contexts, and conduct experiments in complex, naturalistic environments. Here, we describe how to implement such a tracking system for songbirds in a captive experimental setup, which allows for tracking of individuals’ positions and orientations over time. We particularly focus on the design and deployment procedures for backpack‐mounted barcodes to ensure bird safety and reliable data collection, as well as the required monitoring and maintenance of the system over long periods of time. We discuss the materials used, different camera systems for capturing image data, and other considerations associated with data collection, with a particular focus on how to implement this system cheaply and effectively. We then provide details on the process of extracting data from the images, and what software is available for this purpose, highlighting opportunities for automation of the entire processing pipeline. Finally, we discuss potential behaviours that can be measured, using such a system and possible applications in further studies.
+
+\subsection{Materials and Methods}
+\subsubsection{Study population}
+We tested our barcode tracking system on domesticated zebra finches Taeniopygia guttata. The zebra finch is a model species widely used in behavioural studies (Boogert et al., 2014; David, Auclair, & Cezilly, 2011; Farine et al., 2015; Kriengwatana, Spierings, & ten Cate, 2016; Mariette & Griffith, 2012; Ruploh, Bischof, & von Engelhardt, 2014; Schuett, Dall, & Royle, 2011; Wuerz & Kruger, 2015). They are social birds, living in colonies of 50–100 individuals (Zann, 1994), and in captivity can be kept in large groups, which makes them a suitable organism to test our tracking system.
+
+We tested our system on two flocks of domesticated zebra finches, held in separate indoor aviaries in the Max Planck Institute for Ornithology in Radolfzell, Germany, with indoor aviary lighting turned on from 8.00 until 18.00 hr. Each flock was held in a 2 × 2 × 2‐m metal‐mesh cage and provided with a complex arrangement of branches, feeders, drinking water, a bathing tray and wood chips as floor cover. We supplied both millet seeds and water ad libitum, except during food‐based assays (see below). No nesting material or nest boxes were available during the length of our trials to prevent the birds from breeding. Each flock consisted of 28 adult individuals in 1:1 sex ratio. We tested several prototype backpacks between September and November 2016. From December 2016 through to the end of March 2017, we fit the backpacks described in this paper to all members of the flocks (except those that could not take a backpack, see below). Birds therefore carried backpacks for up to 4 months, with some individuals carrying backpacks continuously over a period of up to 7 months. Each bird was also fitted with leg bands for identification, consisting of a numbered closed metal band and two plastic bands in a colour combination that was unique in each aviary. This study was conducted under Ethics Permit 35‐9185.81/G16/73 issued by the state of Baden‐Württemberg, Germany.
+
+\subsubsection{Barcode tracking system}
+The barcode tracking system consists of three components: (1) a backpack fitted with a barcode; (2) recording device(s), and (3) processing software and hardware. In this section, we describe the design of the backpack (i.e. structure carrying the barcode), its fitting procedure (i.e. deployment) and the monitoring and maintenance of the codes.
+
+\paragraph{Backpack design}
+Backpacks consist of three main parts: the backpack structure and tag mount, the tray, and the straps (Figure 1). We constructed the structure using 70 × 10‐mm strips of waterproof and tearproof paper (Xerox® ‐Premium Never Tear‐95 μm). We built this structure by laser printing templates on an A4 sheet of paper (Figure 1a, template provided in Supporting Information 1). Each template was cut out, folded and glued into a loop to form the tag mount (Figure 1b,f), which provided a raised surface to keep the barcode above the feathers. We then 3D‐printed black plastic trays (Figure 1c, Supporting Information 2) into which we glued the barcodes (printed on the same type of paper as the backpacks, Figure 1d). The black plastic is an important feature as it reinforces the border that frames the barcode and prevents the birds from damaging the edges, which makes the code unreadable by the software. We glued this tray with the code onto the backpack mount (Figure 1f). Although a well‐deployed backpack should keep this tray behind the wing joints, we rounded the external corners of the tray (Figure 1c) to prevent injuries and wing rubbing.
+
 \begin{figure}
-	\begin{center}
-		\includegraphics[width=\textwidth]{berman2014figure.jpg}\\
-	\end{center}
-	\begin{flushleft}
-		\caption{An overview of the behavioral analysis framework (reproduced from \citealp{berman2014drosopholid,berman2014mapping}) \label{fig:berman2014}} 
-	\end{flushleft}
-\end{figure} 
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_1.jpg}
+    \caption{Components and assembly of the backpack‐mounted barcodes. (a) Template layout. (b) Mount area where plastic trays (c) are glued. (d) Barcode layout and cutout to be glued on the tray. (e) Assembled backpack with tray and code raised on the mount (f)}
+    \label{fig:bird_figure_1}
+\end{figure}
 
-	\subsubsection{Methods} \label{sec:methods}
-	
-	This is the primary project for my PhD thesis, and these methods will be used for all other projects. For a more detailed description of the methods, see \textit{Appendices}.
-	
-	\paragraph{Quantifying Perception and Behavior}
-	\par
-	Most previous methods for quantifying animal behavior can be placed into one of two categories. The first is to use coarse measures of locomotion such as velocity, turning, etc., or counting the number of discrete events imposed by the experimental setup, such as choosing the left or right arm of a maze. The second is to manually label data with behavioral categories determined by a human observer, and more recently, to use these labels in combination with detailed movement data and supervised machine learning classifiers to subsequently label much larger data sets \citep{kain2013leg,kabra2013jaaba}. 
-	\par
-	While this second method has improved the level of detail with which behavior can be measured, it is prone to researcher bias and the subjective definitions of what constitutes a behavioral \say{category}. Moreover, these methods are incapable of labeling behaviors not specified by the researcher and fail to first demonstrate from the data whether or not the behaviors can be meaningfully categorized at all. Recent advances in unsupervised machine learning methods now allow for the detailed measurement of behavior without this subjectivity \citep{berman2014drosopholid, berman2014mapping, berman2016predictability, klibaite2017unsupervised, wiltschko2015,todd2017exploration}. As previously mentioned, these methods derive a behavioral description directly from data with clearly stated assumptions and testable consequences.
-	\par
-	Here I propose to extend the framework proposed by \cite{berman2014mapping,berman2014drosopholid} to measure the perception and behavior of individuals within groups of animals (Figure \ref{fig:berman2014}). The basis of this approach is to view behavior as a trajectory through a high-dimensional space of postural dynamics where repeatable, sustained pauses in behavioral space indicate stereotyped behaviors while rapid movements through space correspond to non-stereotyped actions. In brief, this framework takes a video of an individual animal, rotationally and translationally aligns each frame (Appendix \ref{sec:imageregistration}), linearly compresses the dimensionality of each frame into a low-dimensional description of posture (Appendix \ref{sec:posturaldecomposition}), transforms the postural time-series to the frequency domain using a continuous wavelet transform (Appendix \ref{sec:spectrogramgeneration}), and then nonlinearly embeds each time point into a two-dimensional map (Appendix \ref{sec:spatialembedding}). The underlying probability distribution of the behavioral space is then estimated with 2-D kernel density estimation. The peaks of this probability density estimate can then be spatially segmented, using a watershed transform \citep{roerdink2000watershed}, into discrete regions of stereotyped behavior. The output of this pipeline provides a rich description of an animal's entire behavioral repertoire while respecting the underlying topology of the data at every step.
-	\par
-	To improve the overall computational tractability for measuring the behavior of animal groups, I have reformulated the methods introduced by \citet{berman2014mapping,berman2014drosopholid} to fit within the framework of \textit{artificial neural networks} (ANNs; Appendix \ref{sec:anns}). Reimplementing this framework as ANNs allows for highly reproducible results with learned parametric models, which after training, can be used to easily analyze new data. Importantly, most of the computation has been moved from the CPU to the GPU, which allows for highly-parallel processing and drastically reduced computation time. Moreover, I am working to further extend this framework by incorporating the direct estimation of sensory inputs to the visual system---using a ray-casting algorithm similar to software previously developed by Colin Twomey \citep{strandburg2013visual,rosenthal2015network,twomey2016vision}--- and the automatic detection of physical interactions between individuals. I will then be able to directly map, from physics first principles, the relationship between sensory inputs and behavioral outputs (Figure \ref{fig:perceptionbehavior}) in a highly rigorous and detailed way. Building on this framework, I will then be able to examine the collective dynamics of locust swarms at both the individual and network level. 
-	
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=0.8\textwidth]{perceptionbehaviorfigure.png}\\
-		\end{center}
-		\begin{flushleft}
-			\caption{Visual field reconstruction (\textbf{left}) will be mapped to detailed behavioral output (\textbf{right}), represented here as pixel variance.\label{fig:perceptionbehavior}} 
-		\end{flushleft}
-	\end{figure} 
-	
-	\paragraph{Individual Tracking}
-	A key challenge of using computer vision for quantifying collective animal behavior is the ability to track individuals over long periods of time while maintaining identities. For unmarked animals this has been solved in a number of ways \citep{perez2014idtracker,rodriquez2017toxtrac,rasch2016closing}, but typically these methods are limited to a dozen or so individuals either due to the computational complexity of the algorithms they rely on or a lack of differences in coloration that makes individual identification unreliable. Additionally, most of these methods can only be used under ideal laboratory conditions and may require extensive manual linking of trajectories (e.g. \citealp{rosenthal2015network}).
-	\par
-	An obvious solution for tracking larger groups is to mark individuals in a way to makes them easily distinguishable to computer vision algorithms. Examples of these markings include painting or injecting colored elastomer under the skin of each animal to create known color variation. A simpler marker solution is to attach a 2-D barcode tag to each animal. Each of these barcodes is encoded with a unique identity matrix that is some specified distance (number of bits) from all other barcodes. While attaching these markers is not tractable for many animal species, this tracking paradigm has been employed in a number of previous studies involving insects \citep{crall2016social,heyman2017ants,mersch2013tracking}.
-	\par
-	Here I employ my own software for tracking 2-D barcode tags inspired by \citet{crall2015beetag}. This software is greatly improved over other barcode tracking implementations in terms of both speed and accuracy. The software provides a high-level Python API for the automated measurement of animal behavior and locomotion, and it is currently being used internally at the Max Planck Institute for Ornithology. This software is quickly becoming a standard tool for the study of collective and social behavior in a variety of species (Figure \ref{fig:barcodefigure}), and I plan to make the source code publicly available after publication.
-	\par
-	Locusts are generally robust to physical manipulation, including invasive surgery \citep{bazazi2008collective}; therefore, we are able to directly attach these markers to individuals, using cyanoacrylate glue, without issue. The tracking problem is then greatly simplified (Figure \ref{fig:locustbarcodefigure}). While this method relies on the barcode to be visible for successful tracking, missing trajectory data caused by occlusions can be inferred using interpolation for small gaps or basic object tracking algorithms for longer spans of missing data. 
-	
 
-	\begin{figure}
-		\begin{center}
-			\includegraphics[width=1\textwidth]{barcodefigure.png}\\
-		\end{center}
-		\begin{flushleft}
-			\caption{Barcodes being used to track African cichlids (\textbf{top-left} and \textbf{bottom-right}), sunbleak (\textbf{bottom-left}) and zebrafinches (\textbf{top-right}). This technology gives detailed insight into the subtle social interactions driving collective behavior (\textbf{bottom}).\label{fig:barcodefigure}} 
-		\end{flushleft}
-	\end{figure} 
-	
-	\begin{figure}
-		\begin{center}
-			\includegraphics[height=0.90\textheight]{locustbarcodefigure.png}\\
-		\end{center}
-		\begin{flushleft}
-			\caption{Barcodes are used to track locusts (\textbf{top}) and generate trajectories for each individual (\textbf{bottom}) while maintaining identity (colored lines).\label{fig:locustbarcodefigure}} 
-		\end{flushleft}
-	\end{figure} 
+Backpacks include a front strip of paper that fits between the scapulae of the bird, into which we punched four round holes (c. 1‐mm diameter, Figure 1e) to attach the elastic string that formed the straps of the backpack around the bird (Figure 2). For each backpack, we used a single piece of string 25‐cm long which we looped through the rear holes on the paper, crossed under the backpack, tied on the front holes, and kept the leads loose to allow for individual adjustment during deployment. For zebra finches, we used a 28 × 6‐mm front strip, a 10 × 10 mm mount raised 6 mm, and 10‐mm square tray. Backpacks weighed c. 0.27 g when fully assembled, including the straps.
 
-	\paragraph{Experimental Setup}
-	I will conduct experiments in white, plastic behavioral arenas similar to \citet{buhl2006disorder,bazazi2008collective,bazazi2011nutritional} (see Figure \ref{fig:locustbarcodefigure}). The arenas will be filmed in a climate-controlled room using a high-resolution (2048$\times$2048px, 90Hz or 4112$\times$3008px, 31Hz), monochrome machine vision cameras.
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_2.jpg}
+    \caption{Left: bottom view of bird with backpack. The string sits in front and behind the wings and crosses on the chest of the bird. Right: Top view. The string is tied at the anterior end of the backpack which goes between the scapulae, and the mount with the barcode sits on the rump, behind the wing joints}
+    \label{fig:bird_figure_2}
+\end{figure}
+\paragraph{Backpack deployment}
+The general procedure for fitting backpacks includes the following steps: (1) Catching, measuring and recording health status of each bird; (2) Backpack fitting; (3) Observation during acclimation; (4) Releasing and monitoring birds in their permanent housing; and (5) Periodic health checks.
 
-	\paragraph{Current State}
-	The barcode tracking, behavioral classification, and visual field reconstruction software packages are all near completion. The experimental setup has been constructed. Preliminary experiments have been completed. Final experiments are planned for August-December 2017.
+Once we confirmed the birds were in good health (step 1), we fit a completely assembled backpack to each bird (step 2). We pre‐tied the string on the backpack with a simple slipknot and then pulled the straps over the bird's head until the front strip sat on the interscapular area, carefully pulling each wing through the looped straps. We found that the best fit was achieved when the leading edge of the raised section was below the elbow joint of the wing, and the trailing edge was above the rump (Figure 2). Once the backpack was in its final position, we tightened the string around the body, adjusting according to the size of each bird. The tightness must be firm enough to hold the backpack in position while preventing the bird to put its feet or toes inside of the loop, but also loose enough to allow the birds to fly and move freely, and to avoid blocking the crop. In their final position, the straps should sit midway between the body and the surface of the feathers. The front strip and the string loops eventually become covered by the feathers, while only the mount with the plastic tray and the barcode are visible. The mount must be positioned behind all the wing bones and joints, where only feathers can be in contact with it.
+
+After fitting the backpacks, we placed subjects in a small observation cage (step 3) to monitor their behaviour. This step is critical for animal safety. We monitored birds for up to 1 hr until we were sure that they behaved normally, that is, with no observable hindering of movement. A well‐fitted backpack allows the animal to move freely, with no interference for flying, walking, landing or perching. Most birds tried to pull the backpacks or the straps off during this period. In our experience, the intensity and duration of this behaviour was not necessarily a signal of an ill‐fitting backpack and, on the contrary, preening helped to accommodate all the new elements. We found that the acclimation process worked better when subjects were kept in small groups (2–5) and in a separate room with no people present, as it reduced stress and allowed for allopreening, feeding and undisturbed movement. Once we considered the deployment procedure was successful, we made a final check of the adjustments, secured the knot near the neck of the bird a second small knot and cyanoacrylate glue, and cut any excess string from the leads. When necessary, we also trimmed some covert feathers around the mount to prevent any obstructions on the codes that might hinder detection.
+
+Every time we observed a bird with hindered movement or unusual behaviour that could be related to the backpack (i.e. foot or toes trapped in a loose strap, incapable of flight, or unbalanced perching), we checked and readjusted the straps using blunt‐tip tweezers. In some cases, if a bird's movement did not improve after the adjustment, we completely removed the backpack, let the bird rest to reduce stress, and observed it without the backpack before trying another deployment. After a second attempt, a few birds (4 of 58) still showed suboptimal performance despite having a well‐fitted backpack and appearing to be in good health. Our testing suggests that fewer than 5\% of subjects will never acclimate to the backpacks.
+
+\paragraph{Backpack monitoring}
+We monitored the birds regularly, either during our experiments or during care‐taking activities, and constantly looked for unusual behaviour. This monitoring is important to prevent injuries or detect early symptoms of health issues, either related to the backpacks or otherwise. In our experience, most of the signs that could suggest ill‐fitted tags occurred within the first 2 days of observation after deployment and were addressed promptly. Importantly, some issues were only detectable when birds were settled in their permanent housing environment where they could fly much more extensively. We also monitored the birds by assessing the tracking data to identify individuals that were outliers in the number of detections (suggesting they behaved differently to others). The main issue we found arose after release into large aviaries was the backpack rubbing on the body or wings of the bird. Symptoms of this included bald spots on wings or neck, reduced movement or difficulty flying. These were addressed immediately by ensuring the backpack mount (and tray) were correctly fitted (i.e. not crooked and positioned away from the wings). However, in some cases, when the problem persisted, we completely removed the backpack, let the bird rest, and observed its behaviour without the backpack.
+
+\subsubsection{Camera systems}
+Barcodes can be detected using either photos or video. The choice largely depends on the research question to be addressed, as well as the scale of data collection and its associated processing and storage requirements. In this section, we provide details on the necessary considerations for implementing a camera system, and details of our experience using several implementations, including high‐resolution photos and video from action cameras, computer‐controlled DSLR cameras and the programmable camera module for the Raspberry Pi. We also discuss the pros and cons of each system for different types of research questions.
+
+\paragraph{Code size and capture}
+For adequate detection and recognition of individual birds in photos or videos, the size of the barcodes should be at least 20 pixels per side in the captured image data (Crall et al., 2015), but this can vary depending on tag design and camera hardware. Detectability of tags can be improved, using high‐resolution cameras, reducing the distances between the codes and the camera (either physically or by using zoom lenses), or increasing the physical size of the deployed tags (which is limited by the study organism). Other considerations such as lens distortion, sharpness, and depth of field must be considered depending on the setup and area being captured. Lens distortion can be partially corrected via software, but this correction reduces the effective resolution of the images, especially for wide‐angle lenses (Figure 3). Depth of field is an important consideration if the birds can perch at different heights, although issues can be avoided by having all perches on the same plane. Finally, the camera shutter speed needs to be chosen carefully. Slow shutter speeds result in blurred or overexposed codes and, thus, failed detections. To prevent these problems, exposure time should be set as short as possible while ensuring that contrast and noise levels are adequate for the software to successfully read the codes. We found that darker images had greater detectability as they increased the clarity of the edges within the barcodes by reducing bleeding of the white areas of the barcode into the black areas.
+
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_3.jpg}
+    \caption{Barcode detections in a feeding context in one video frame (from a GoPro camera). The food source in the centre of the arena was pinned to a wooden board to prevent birds from moving it out of the frame. The tracking algorithm detected barcodes on the back of each individual despite being on a complex background (wood chips). The yellow polygons are objects that were detected as candidate barcodes but did not match any known identities. The bird near the bottom of the image was not detected because its wings covered the barcode in this frame. Individual 16 was oriented away from the food. The black edges around image illustrate the software correction we used to partially compensate for wide‐angle lens distortion
+}
+    \label{fig:bird_figure_3}
+\end{figure}
+
+\paragraph{Photos or video?}
+Imaging technology requires a trade‐off between spatial and temporal resolution as hardware is always limited in its capacity to transmit and process signals. The choice between using photos or videos when capturing image data depends on the spatial or temporal resolution required to answer the research question. Video offers higher temporal resolution (typically ≥24 Hz) at the expense of spatial resolution (most hardware is limited to 3,840 × 2,160‐pixels), making it more suitable for studying behaviours that occur over short periods of time and in confined areas (e.g. allopreening, aggressive interactions, mating displays or copulation). Photos offer increased spatial resolution (>50 megapixels for some DSLR models) at the cost of temporal resolution (most cameras are limited to <15 Hz at full resolution), making them ideal for assessing behaviours in larger, open areas that do not require high‐frequency measurements (e.g. feeding, bathing, co‐perching, co‐feeding, etc.) and for quantifying associations over longer timescales (i.e. social networks, pair formation, etc.). Current imaging technologies vary widely in frame rate, image resolution, and file sizes, and different camera setups can be adapted for data collection depending on the research question and project budget. We implemented and tested three types of recording devices.
+
+\paragraph{Action cameras}
+We used GoPro Hero 4 action cameras to record video of the birds in a feeding arena 90 × 50 cm on the floor of the aviaries (Figure 3). We set the cameras to run continuously until the battery was depleted (c. 45 min) and chose a resolution of 1,920 × 1,080 pixels (1,080p) at 24 Hz to limit file size, reduce processing time, maximize battery life, and prevent the camera from overheating. We created a 3D‐printed arm to attach the camera to the side of the cage, 50 cm above the feeding arena and manually started recordings immediately after providing birds with a high‐value food patch (to attract them to this focal area of the camera).
+
+These cameras produced adequate image quality but had noticeable distortion due to the wide‐angle fixed lenses. We manipulated the resulting images to reduce distortion before running the detection code (see “extracting data from images”). At 1,080p, we observed that the codes were sharp enough for detection, although at 24 Hz some frames suffer from image blurriness when birds moved. At 1,080p resolution, we generated a 4‐GB file every 15–17 min of video, which is the maximum file size supported by the cameras. This means that in a 45‐min recording session, we had to process three videos and store at least 12 GB. Limitations of this setup include the need to manually operate the cameras, restricted recording time due to battery life or large file size, and limited options for automating the entire system. Some of these problems, such as limited storage, lens distortion, and lack of automation, have been mitigated in newer models of the GoPro Hero series, as well as other brands of action cameras.
+
+\paragraph{Digital SLR cameras}
+We briefly tested data collection using four Canon EOS1200 DSLR Cameras with 18–55 mm lenses for recording video or still images. We connected these cameras to Raspberry Pi 3 single‐board computers to control the image capture frequency. We placed the cameras at the top of the aviaries facing directly down. The cameras were set to capture one image at 1/200‐s every 10 min to measure the position of birds sitting on perches made from natural branches. These cameras can deliver high quality images up to 5,184 × 3,456 pixels (18 megapixels) and the zoom lenses allow for easy accommodation to different distances and to cover either small or large areas. However, this model had a loud mechanical shutter, which visibly disturbed the birds in the enclosed aviary space. Rather than modifying or removing the shutters, we abandoned this setup in favour of cameras with electronic shutters and no moving parts. In video mode, DSLR cameras can record high‐resolution video (1,080p) which is sufficient for collecting detailed movement data. Unfortunately, the recording time for many models is limited to 30 min.
+
+\paragraph{Single-board computers with camera}
+We used Raspberry Pi 3 Model Bs (Raspberry Pi Foundation), each fitted with an 8‐megapixel Camera Module V2 (RS Components Ltd and Allied Electronics Inc.), to record photos of birds on perches (Figure 4). We installed two of these on top of each aviary, covering most of the perch system without overlap. To record the birds present, we set the system to capture one image every 10 s, from dawn to dusk. In our experience, one of the most important advantages of this system is the possibility of programming automation scripts via the picamera software package (Jones, 2013) for Python (Python Software Foundation, available at http://www.python.org). This approach gives the user fine‐scale control over the quantity, sampling frequency, and spatial resolution of photos and videos. In combination with standard networking protocols like Secure Shell, these features allow for a fully automated pipeline that includes image capture, with file transfer, processing, and data storage when networked to a more powerful host computer. Another important advantage of these computers is their low cost, especially if the system requires multiple cameras per aviary or across multiple replicas in an experimental setup. Among the disadvantages of this system is the inconsistent quality of the camera modules (a small proportion of our cameras were unable to produce sharp images). To deal with this, we tested the cameras on the experimental setup and avoided using those that seemed to be defective. Although these camera modules provide a large depth of field, they require manual focusing, which can be difficult and is often inconvenient (Table 1).
+
+\begin{figure}
+    \centering
+    \includegraphics{bird_figure_4}
+    \caption{Barcode detections in a social perching context (photographed with the Raspberry Pi camera module). The software can easily detect visible codes in complex aviary environments and extract information about important interactions, such as direct body contact (individuals 55 and 66), that many tracking algorithms would fail to detect
+}
+    \label{fig:bird_figure_4}
+\end{figure}
+\begin{table}
+\caption{Summary of the pros and cons of different camera implementations tested}
+    \begin{tabular}{| m{0.2\textwidth} | m{0.4\textwidth} | m{0.4\textwidth} |}
+         \textbf{Camera system} & \textbf{Advantages} & \textbf{Disadvantages} \\ \hline
+         DSLR (Canon EOS 1200)	& Image quality. Availability of lenses and accessories. Suitable for video or photo. Low‐light performance.	& Noisy mechanical shutter (this model). Video limited to 30 min. Bulky. Costly. \\ \hline
+         Action Cameras (GoPro Hero 4)	& Compact size. Image resolution and quality. Suitable for video or photo. Wide angle lens suitable for small spaces.	& Lens distortion. Limited battery life. No display (this model). Manual operation (this model). \\ \hline
+         Single‐board computers/Camera module (Raspberry Pi 3 Model B with Camera V2)	&
+         Inexpensive. Compact size. Suitable for video or photo. Programmable. Network access. Expected improvements and software updates. No battery life limitation.	& Lower image quality. Fixed recording area. Difficult manual focusing.
+    \end{tabular}
+\label{table:bird_table}
+\end{table}
+
+\subsubsection{Extracting data from videos and images}
+Once videos or images are recorded, the next step is to extract location data from the barcodes contained in the image data. Several software libraries are available to accomplish this (Crall et al., 2015; Garrido‐Jurado, Muñoz‐Salinas, Madrid‐Cuevas, & Marín‐Jiménez, 2016; Graving 2017; Wang & Olson, 2016), and each provides its own set of barcodes. These software libraries all extract the identity, location, and orientation of each tag from image data. In our study, we used the software library pinpoint by (Graving 2017), which is a based on the work of Garrido‐Jurado et al. (2016).
+
+\paragraph{Code detection}
+The detection algorithm finds the identity matrix of the barcode using the contrasting white and black edges between the barcode and the black frame of the plastic tray on the backpack. Images are binarized using an adaptive (spatially localized) thresholding algorithm, which allows for uneven lighting, and candidate barcodes are detected based on their geometry, which allows for complex backgrounds. Once a candidate barcode is detected, the identity matrix is extracted from the pixel data and compared to known identities stored in a tag dictionary. The tracking algorithm can reliably detect the codes at arbitrary angles, even when they are not completely perpendicular to the central‐axis of the camera lens. The software provides the identity and Cartesian coordinates for the corners of each detected barcode with sub‐pixel resolution, which can be used to calculate the orientation of the code (note the importance of fitting the code in the right direction on the birds).
+
+\subsubsection{Example data analyses}
+To briefly demonstrate the use of this automated approach to data collection and analysis, we studied the foraging behaviour of individual zebra finches at a high‐quality food source and constructed foraging networks based on high‐resolution movement data measured using our system. Social networks are particularly challenging to study using manual observation because they require measuring the behaviour of most or all individuals simultaneously. To achieve this, we created an arena 90 × 50 cm on the floor of each of the two aviaries and provided birds with an ephemeral high‐quality food resource (a slice of zucchini/courgette) twice per day (around 9.00 and 16.00 hr). We used a barcode to record the centroid of the resource, which was subsequently removed to allow birds unobstructed access to food. Birds were fasted for an hour before the experiment to ensure they were motivated to feed, and their access to the food resource was captured on video using the GoPro Hero 4 camera fitted 50 cm above the food (see above). We collected data on the two aviaries for 58 days, between December 15, 2016 and March 29, 2017.
+
+We extracted feeding association data, representing the propensity for individuals to synchronize their feeding and tolerate one another at the food source. We recorded the identity of individuals detected at the food for every video frame by defining a feeding zone with respect to the centroid of the food resource. A feeding event was recorded when a barcode was detected within a 154‐pixel (or c. 8‐cm) radius of the resource centroid, and the bird was facing the food (i.e. the centroid was within the 180° zone in front of the bird) (Figure 3). Once we identified the individuals in every frame and classified feeding events, we constructed a weighted, undirected social network representing the co‐feeding relationships among individuals (represented as nodes) in each flock. We accomplished this by transforming our data into a matrix of pairwise associations using a simple ratio index ($\mathrm{SRI}$) for every pair of individuals in each flock (see Farine & Whitehead, 2015). Here, the edge weight between two individuals ($\mathrm{SRI}_{ij}$) is the probability of observing individuals $i$ and $j$ feeding together given that either $i$ or $j$ has been detected. This calculation is simply given by the following:
+\begin{equation}
+    \mathrm{SRI}_{ij} = \frac{x_{ij}}{n},
+\end{equation}
+
+for $i, j = 1, \dots, N$ and $i \neq j$, where $N$ is the total number of individuals in the flock, $x_{ij}$ is the number of frames in which individuals $i$ and $j$ were feeding together, and $n$ is the total number of frames where either $i$ or $j$ was detected (alone or together).
+
+\subsection{Results}
+\subsubsection{Barcode deployment and maintenance}
+We deployed backpacks on 58 zebra finches (Figure 5), which required about 3 min of handling per individual, plus observation and monitoring time. All the deployed backpacks lasted throughout the experimental period (4 months or more) without causing any injuries to the birds. However, minor maintenance was required as backpacks and codes showed some wearing due to grooming and allopreening (see backpack‐mount in Figure 5). Common issues included loss of ink on and around the barcodes, weakened paper around the front holes, and unglued mounts. We also noticed that, in a few cases, the straps lost elasticity after 4 months and appeared loose. More commonly, we observed that debris (i.e. food remains or excrement) on the barcode obstructed its detection. Every time we detected one of these issues, we addressed it immediately to guarantee both safety of the birds and quality and continuity of the data collection. For any minor issues, we carefully cleaned the codes to remove debris, or covered the ink‐less spots with black ink permanent markers. For extensive damage on the mount or the surface of the barcode, we removed and replaced the mount keeping the strip and the elastic string on the bird, thus reducing manipulation and acclimation time. In cases that required a whole new backpack, we repeated the process of the first deployment.
+
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_5.jpg}
+    \caption{Male zebra finch with a barcode backpack c. 4 months after fitting. Note the wearing on the backpack structure caused by grooming behaviours
+}
+    \label{fig:bird_figure_5}
+\end{figure}
+
+\subsubsection{Detection}
+We recorded 48 hr of video at the feeding arenas using GoPro Cameras and recorded photos using Raspberry Pi cameras. The detection software identified 52.05\% of the barcodes (i.e. birds) present in 100 randomly selected frames from the GoPro footage. This percentage was improved to 64.58\% after simple linear interpolation of positions across short gaps of missing data (e.g. 1–24 frames of video). From the photos of birds perched on the aviary branch system, the software detected 60.4\% of the individuals present in 100 randomly sampled images captured, using the Raspberry Pi cameras. The most common reasons for failed‐detections were motion blur and feathers temporarily obscuring parts of the code (e.g. Figure 3). Motion blur was most prominent in GoPro videos but is easily prevented in photos using shutter speeds of 1/1000‐s or faster (which can even identify birds in flight, Figure 6). Trimming some feathers around the code during backpack deployment can increase the number of detections, although we expect the current rate of data collection to be sufficient for most applications and research questions.
+
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_6.jpg}
+    \caption{Example of a zebra finch (individual 80) being detected in flight (with 1/2000‐s shutter speed)
+}
+    \label{fig:bird_figure_6}
+\end{figure}
+\subsubsection{Example data analyses}
+Using image data collected with a GoPro mounted over the food arena, we were able to distinguish birds consuming the resource from those present in the frame but not feeding (Figure 7). For example, from a single 45‐min observation period, as shown in Figure 7, we recorded 74,960 records of individual positions. These records also contain many potential interactions. We demonstrate that the data on the co‐presence of individuals at a food source can be used to generate social networks (Figure 8), a powerful approach used in many studies of animal behaviour for which extensive observation data are required.
+
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_7.jpg}
+    \caption{Detection of feeding behaviour characterized by proximity and directionality to the food source. The inner circle represents the outline of the food source, and the outer circle represents the 154‐pixel boundary for birds to considered to be “at food.” Coloured dots represent detections of different individuals within the “at food” zone. Grey dots are birds present and identified in the frame but not actively feeding. The positions of birds away from the centre of the frame are less accurate due to lens distortion (see Figure 3)
+}
+    \label{fig:bird_figure_7}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_8.jpg}
+    \caption{Affiliative networks generated with co‐feeding data extracted from barcodes detected at a food source using a video camera in (a) flock 1 and (b) flock 2. Each node (circle) represents an individual. Red nodes represent males, and blue nodes represent females. The size of the node represents the individual's degree in the network, a measure of centrality computed by summing the weights of all the edges connected to it. The thickness of the line represents the strength of the association between each pair of individuals
+}
+    \label{fig:bird_figure_8}
+\end{figure}
+
+\subsection{Discussion}
+We present a method for recording the behaviour of captive birds using backpack‐mounted barcodes, image capture, and computer detection. With proper deployment, manipulation and monitoring, we have shown that this system is safe for the birds, durable, and capable of delivering extensive data from multiple individuals simultaneously. These position and orientation data can be used to assess multiple types of behaviours, associations and interactions among individuals. This system presents several advantages to more commonly‐implemented methods. In particular, it is adaptable to different contexts and research questions, being possible to vary the temporal resolution (photos or video) and the area covered without requiring any additional markers to birds. For general purposes, the use of Raspberry Pi single‐board computers and camera modules makes this method affordable, enabling high‐throughput data collection that increases sample sizes and statistical power. Our example analyses demonstrate that the barcode‐based approach can generate similar data to what is often collected using PIT tags (Figure 8), but also provides much richer information on movements and spatial location within patches (Figure 7). We found that the backpack system simplified the data analysis because we were certain about the co‐occurrence of birds at the same food source (i.e. captured in the same frame), instead of having to infer co‐occurrences from sequences of detections using pattern‐recognition algorithms (e.g. Psorakis et al., 2015).
+
+We tested the application of different camera setups and behavioural contexts, including video for feeding arenas and photos in co‐perching scenarios. Cameras could be fitted in various locations, including bathing areas, nest boxes, and potentially in open areas to capture birds in flight (e.g. Figure 6). The decision on the type of camera and on video or photos will depend on each research question. For example, researchers could choose video for recording aggressive interactions or other behaviours that involve movement, or capture photos every few seconds to capture affiliative data for the purposes of studying social networks, pair formation, or group stability. The type of data provided by these barcodes also provides new opportunities for analysis. Using machine learning, it will be possible to automatically classify behaviours and interactions over extended periods of time while also minimizing manual annotation by a human observer (Robie, Seagraves, Egnor, & Branson, 2017), thereby avoiding bias and fatigue. Such approaches have been developed for studying other organisms (Kabra, Robie, Rivera‐Alba, Branson, & Branson, 2013), which use data that are similar to what our system generates.
+
+Our backpack‐based barcode method has potential to be extended to diverse range of systems. Although we only collected data during daylight hours, barcodes could easily be detected in low‐light conditions and many commercially available infrared cameras can image the black‐and‐white codes without visible light (using infrared lights). While most birds are not very active at night, there is increasing evidence that many important behaviours happen early in the morning (Bonter, Zuckerberg, Sedgwick, & Hochachka, 2013). Such behaviours could easily be captured with this barcode system but would be almost impossible to study using manual observations or video as it is difficult to identify coloured leg bands. Future applications include using barcodes to identify individuals interacting with a device (e.g. a feeder or a puzzle box). To date, such systems have mostly relied on using PIT tags (e.g. Aplin et al., 2015), which limits sampling to a single individual at once. In social species, individuals often congregate, and a barcode system can facilitate multiple simultaneous detections and quantify relative positions of individuals to one‐another and to the device. The implementation of “real‐time” detection could allow for algorithms that control devices in response to the behaviour of birds, such as allowing only a maximum number of individuals in one area or selectively dispensing food to particular individuals (as performed by Firth, Voelkl, Farine, & Sheldon, 2015). Barcodes could provide a powerful interface between individuals and experimental devices, not only by being able to provide tailored responses (such as individual learning algorithms, Morand‐Ferron, Hamblin, Cole, Aplin, & Quinn, 2015), but also, unlike almost any other system, by capturing information about who else is present when particular events occur.
+
+Although we have discussed the multiple advantages, the limitations of the system must be also considered. While backpacks and barcodes can last for more than 4 months, permanent monitoring was required to assure safety of the birds and adequate delivery of data. Grooming and allopreening caused some wear on the backpacks and codes, and this sometimes led to impaired movement of the birds. Detecting and addressing such issues is important for both safety of the birds and continuity of the data collection. Additionally, there are unavoidable issues that reduce detectability, like fast movement, codes tilted due to extreme body position, and wings or feathers partially covering the trays. The current design of the backpacks addresses these issues well and delivers consistent detection. Additional concerns related to camera systems, such as storage, resolution, lens distortion or lighting, can be solved for specific research circumstances.
+
+A key question that requires further investigation is whether these backpacks will be suitable for field deployment. We found that, in zebra finches, we could detect most issues within the first 1–2 days. However, few field studies are amenable to keeping birds in captivity to allow such monitoring. Thus, field applications may be limited to species that either have well‐established protocols for fitting backpacks in the field or those in which individuals can be easily monitored (e.g. territorial species). We believe that there is a danger that small songbirds could entangle their backpacks in small branches, particularly if backpacks become loose over time. Finally, our aviaries had artificial lighting that remained constant during daytime. Researchers conducting outdoor studies, with natural lighting conditions, must consider the changing environment (i.e. sun position and cloud coverage) to avoid unusable images due to the differences in light quality from dawn/dusk to noon. For example, sun shining directly on the white tag will make the code invisible to the camera, while a setup designed for sunny conditions would create completely black photos under cloudy conditions. The use of infra‐red cameras and infra‐red lighting is one way to overcome this challenge.
+
+Our backpack‐mounted barcode system could revolutionize data collection in a range of experimental systems. We have demonstrated that it can be implemented safely and cheaply. Further, it has the ability to collect extensive data across many individuals simultaneously and the flexibility to address diverse research questions. With simple software modifications, the system can also be integrated into active devices that interface directly with individuals, which will prove to be an extremely powerful experimental approach.
+
+\subsubsection{Data availability}
+The raw tracking data files, including the distance from the food patch, that are used for the example data analyses can be found at https://doi.org/10.17617/3.19.
+
+
+
+
+\newpage 
+	\section[Chapter 2: DeepPoseKit, a software toolkit for animal pose estimation]{\centering Chapter 2: DeepPoseKit, a software toolkit for fast and robust animal pose estimation using deep learning}
 	
-	\subsubsection{Timeline}
-	\begin{itemize}{}{}
-		\item Project duration --- 2.5 years
-		\item Software development --- 1.5 years
-		\item Construction of experimental setup --- 4 months
-		\item Obtaining preliminary results --- 2 months
-		\item Obtaining final results --- 4 months	
-		\item Final discussions and writing up --- 2 months.
-	\end{itemize}
-	
+	\textbf{Jacob M. Graving, Daniel Chae, Hemal Naik, Liang Li, Benjamin Koger, Blair R. Costelloe, Iain D. Couzin}
+
 
 \subsection[Nutritional State and Sensory Perception]{The Influence of Nutritional State on Sensory Perception and Group Movement} \label{project2}
 \paragraph{Objective:} 
@@ -295,7 +396,7 @@ The barcode tracking, behavioral classification, and visual field reconstruction
 
 
 \begin{appendices}
-\pagenumbering{roman}
+%\pagenumbering{roman}
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=0.3\textwidth]{neuralnetwork.png}\\
@@ -539,5 +640,14 @@ After training the network, I then transform the data matrix $S(k,f;t)$ to the e
 \bibliographystyle{apacite}
 \addcontentsline{toc}{section}{References}
 \bibliography{Graving_IMPRS_PhD_Proposal_Bib.bib}
+
+\section{Acknowledgements}
+
+\paragraph{Chapter 1}
+We thank Jana Hörsch, Laila Darouich, Alex Bruttel, Daniel Zuñiga and the animal caretaker team at the Max Planck Institute for Ornithology in Radolfzell for assistance with data collection and monitoring animal health each day. We thank Iain Couzin, Andrew Straw and two anonymous reviewers for helpful comments on the manuscript. We also thank Iain Couzin for his support of the project. This work was funded by the Max Planck Society. D.R.F. and A.A.M.‐C. received additional funding from the German Research Foundation (DFG grant FA 1420/4‐1 awarded to D.R.F.).
+
+\section{Author Contributions}
+\paragraph{Chapter 1}
+D.R.F. conceived the project; G.A.‐N. and J.A.K.‐I. developed the backpack design and deployment procedure; IM monitored the health of the birds and impacts of the backpacks; G.A.‐N. tested image and video capture methods, and collected the data; J.M.G. developed the pinpoint software and assisted with the design of the image and video capture methods; A.A.M.‐C. and J.A.K.‐I. performed the example data analyses; G.A.‐N. and D.R.F. wrote the first draft of the manuscript. All authors contributed to editing and revising the final manuscript.
 
 \end{document}
