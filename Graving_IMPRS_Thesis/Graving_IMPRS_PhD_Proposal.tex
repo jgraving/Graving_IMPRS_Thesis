@@ -1047,7 +1047,7 @@ These results demonstrate that our re-implementation of and modification to the 
 
 
 \label{app:depthwise}
-\section{Depthwise-separable convolutions for memory-limited applications}
+\section[Depthwise-separable convolutions]{Depthwise-separable convolutions for memory-limited applications}
 In an effort to maximize model efficiency, we also experimented with replacing 3$\times$3 convolutions in our model implementations with 3$\times$3 depthwise-separable convolutions —first introduced by \cite{chollet2017xception} and now commonly used in fast, efficient “mobile” CNNs (e.g., \citealt{sandler2018mobilenetv2}). In theory this modification should both reduce the memory footprint of the model and increase inference speed. However we found that, while this does drastically decrease the memory footprint of our already memory-efficient models, it slightly decreases accuracy and does not improve inference speed, so we opt for a full 3$\times$3 convolution instead. We suspect that this discrepancy between theory and application is due to inefficient implementations of depthwise-separable convolutions in many popular deep learning frameworks, which will hopefully improve in the near future. At the moment we include this option as a hyperparameter for our Stacked DenseNet model, but we recommend using depthwise-separable convolutions only for applications that require a small memory footprint such as training on a lower-end GPU with limited memory or running inference on a mobile device.
 
 \chapter[VAE-SNE]{Appendix to ``VAE-SNE, a deep generative model for simultaneous dimensionality reduction and clustering"}
@@ -1168,7 +1168,7 @@ ivis            & Szubert et al. (2019)        & yes            & no            
 
 \end{figure}
 
-\begin{figure}[!htb][ht]
+\begin{figure}[!htb]
 \includegraphics[width=1.0\textwidth]{Graving_IMPRS_Thesis/figures/cluster_appendix.pdf}
 
 \caption{  \textbf{High-level behavioral clusters.} Visualizations describing the manually-grouped high-level clusters for anterior grooming (\textbf{a},\textbf{e},\textbf{g}), wing movements (\textbf{b},\textbf{e},\textbf{h}) and small/slow leg movements (\textbf{c},\textbf{f},\textbf{i}). \textbf{a-c}, The 2-D posterior probability density for each cluster (left), where contours are the largest 90\% probability density contour for each cluster distribution, and the mean spectrogram for each cluster (right). \textbf{d}-\textbf{i}, The principal component scores of the spectrograms assigned to each cluster visualized within the 2-D embedding (left) and the eigenvector coefficients describing the linear contribution of each spectrogram feature (right) for the principal component score.}
@@ -1300,10 +1300,10 @@ ivis            & Szubert et al. (2019)        & yes            & no            
 \label{fig:spherical_embedding_rna_video}
 \end{figure}
 
-\subsection{Variational autoencoders and the evidence lower bound}
+\section{Variational autoencoders and the evidence lower bound}
 
 
-\subsubsection{VAEs as approximate Bayesian inference}
+\subsection{VAEs as approximate Bayesian inference}
 \label{appendix:vae}
 As is common to most dimensionality reduction algorithms, we seek to model a high-dimensional data distribution $p(\mathbf{x})$ using a low dimensional latent distribution $p(\mathbf{z})$. Variational autoencoders (VAEs) are one such model that combines both modeling and inference by defining a joint distribution between a latent variable $\mathbf{z}$ and observed samples $\mathbf{x}$. We can accomplish this using a generative model that maps samples from the low-dimensional latent distribution to the high-dimensional data distribution using a set of shared parameters $\boldsymbol{\theta}$, which can take the form of a deep neural network model $p_{\boldsymbol{\theta}}(\mathbf{x} | \mathbf{z}) = \mathrm{DNN}_{\boldsymbol{\theta}}(\mathbf{z})$ with some prior over latent distribution $p_{\boldsymbol{\theta}}(\mathbf{z})$. We then wish to find the model parameters $\boldsymbol{\theta}$ that maximize the joint likelihood, which can be written as:
 
@@ -1333,7 +1333,7 @@ Like other VAE models \citep{kingma2013vae, kingma2014semi, burda2015iwae, dilok
 \end{subequations}
 where $\mathcal{L}(\mathbf{x}| \cdot)$ is a user-selected likelihood function parameterized by the decoder function $\mathrm{DNN}_{\boldsymbol{\theta}}(\mathbf{z})$, and $\mathcal{N}(\cdot | \boldsymbol{\mu}, \mathrm{diag}(\boldsymbol{\sigma}^2))$ is a multivariate Gaussian whose parameters $\boldsymbol{\mu}$ and $\boldsymbol{\boldsymbol{\sigma}^2}$ are a specified by the encoder function $\mathrm{DNN}_{\boldsymbol{\phi}}(\mathbf{x})$. 
 
-\subsubsection{Deriving the evidence lower bound}
+\subsection{Deriving the evidence lower bound}
 \label{appendix:elbo}
 After defining the generative model, we then wish to optimize the parameters of the encoder $\boldsymbol{\phi}$ and decoder $\boldsymbol{\theta}$ --- given a set of observed samples from a data distribution $\mathbf{x} \sim p(\mathbf{x})$ --- so that the approximate posterior distribution $q_{\boldsymbol{\phi}}(\mathbf{z} | \mathbf{x})$ matches closely with the true latent posterior from the generative decoder, or $q_{\boldsymbol{\phi}}(\mathbf{z} | \mathbf{x}) \approx p_{\boldsymbol{\theta}}(\mathbf{z} | \mathbf{x})$. In other words, we wish to minimize the divergence between the two distributions, or:
 
@@ -1378,12 +1378,12 @@ To learn the latent distribution given the model and the data, the $\mathrm{ELBO
 The derivation of the $\mathrm{ELBO}$ has also been discussed at length elsewhere (e.g., \citealt{kingma2013vae, kingma2014semi, burda2015iwae, alemi2016deep, dilokthanakul2016gmvae, alemi2017fixing, ding2018scvis}; also see \citealt{kingma2019introduction} for a comprehensive introduction).
 
 
-\subsubsection{Importance-weighted ELBO}
+\subsection{Importance-weighted ELBO}
 \label{appendix:iwae}
 While we use only a single Monte Carlo sample from the approximate posterior per training batch, we also include a hyperparameter for multiple samples per training batch using the importance-weighted $\mathrm{ELBO}$ from \cite{burda2015iwae}, which modifies how the expectation in Eq. \ref{eq:expected_elbo} is calculated to produce a tighter bound on the loss by implicitly increasing the complexity of the posterior \citep{cremer2017reinterpreting}. However, we did not see any obvious performance improvements when using the importance-weighted objective, and increasing the number of Monte Carlo samples per batch also increases training time. The general utility of calculating a tighter bound is also unclear \citep{rainforth2018tighter} but this may be related to the generalization ability of the model. We leave further exploration of this hyperparameter for future work.
 % You can use the \nameref{label} command to cite supporting items in the text.
 
-\subsection{Stochastic neighbor regularization}
+\section{Stochastic neighbor regularization}
 \label{appendix:sne}
 By modeling local neighborhoods as probability distributions, known as pairwise similarity kernels, and then minimizing the divergence between the neighborhood distributions in high- and low-dimensional space, we preserve more local structure within the low-dimensional embedding than a standard VAE \citep{ding2018scvis}. To compute these pairwise similarities, we largely follow \cite{hinton2003stochastic} and \cite{maaten2008tsne} by modeling local neighborhoods as the probability of transitioning from a landmark point to its nearby neighbors when performing a random walk initialized from the landmark. 
 
@@ -1450,9 +1450,9 @@ Consequently, the Kullback-Leibler divergence for the similarity term can be rei
 This may also help to clarify why we wrote the low-dimensional kernels as log-probability functions in Eqs. \ref{eq:tsne_logp}, 
 \ref{eq:sne_logp}. 
 
-\subsection{Extensions of VAE-SNE}
+\section{Extensions of VAE-SNE}
 \label{appendix:extensions}
-\subsubsection{Spherical embeddings with a von Mises-Fisher kernel}
+\subsection{Spherical embeddings with a von Mises-Fisher kernel}
 \label{appendix:spherical}
 In addition to embeddings with Euclidean geometry, we introduce a version of VAE-SNE that uses polar geometry and embeds high-dimensional data on the surface of a 3D unit sphere. We calculate the high-dimensional similarities according to Appendix \ref{appendix:sne}, but we alter the calculations for the transition probabilities by using the cosine similarity for the high-dimensional pairwise metric. After normalization, this is equivalent to using a (hyper)spherical von Mises-Fisher distribution as the similarity kernel, or:
 
@@ -1473,7 +1473,7 @@ The idea of using spherical embeddings for dimensionality reduction has been exp
 To test this extension, we use von Mises-Fisher VAE-SNE to embed the posture dynamics dataset from \cite{berman2014mapping, berman2016predictability, pereira2019fast} as well as the single-cell RNA-seq dataset from \cite{la2018rna} and visualize the embeddings across the three dimensions of the unit sphere (Fig. \ref{fig:spherical_figure}; \ref{fig:spherical_embedding_posture_video}; \ref{fig:spherical_embedding_rna_video}). We find that the results are qualitatively similar to 2-D Euclidean embeddings of the same data (Fig. \ref{fig:embedded_data_figure}), but are instead embedded across a 3-D sphere. Despite not using a heavy-tailed similarity kernel \citep{maaten2008tsne} these spherical embeddings naturally do not exhibit any crowding problems \citep{davidson2018hyperspherical, ding2019deep}, which may make this a useful visualization tool for some scenarios.
 
 
-\subsubsection{Convolutional VAE-SNE for image data}
+\subsection{Convolutional VAE-SNE for image data}
 \label{appendix:conv}
 We introduce a convolutional version of VAE-SNE for embedding image data from raw pixels. This version of VAE-SNE is modified by first applying a 2-D convolutional neural network $\mathrm{CNN}_{\boldsymbol{\phi}}$ --- a SqueezeNet v1.1 \citep{iandola2016squeezenet} pretrained on ImageNet \citep{deng2009imagenet} --- to each image and then calculating the pairwise similarity using spatially-pooled feature maps from the $\mathrm{CNN}_{\boldsymbol{\phi}}$ output. The high-dimensional transition probabilities (Appendix \ref{appendix:sne}) are then calculated using a Gaussian kernel:
 
@@ -1483,7 +1483,6 @@ t(\mathbf{x}_j | \mathbf{x}_i) = \frac{\exp \left(-d(\hat{\mathbf{v}}_i, \hat{\m
 where $\hat{\mathbf{v}}_i$ is a vector of spatially-pooled feature maps from the $\mathrm{CNN}_{\boldsymbol{\phi}}$ output, or $\hat{\mathbf{v}}_i = \mathrm{CNN}_{\boldsymbol{\phi}}(\mathbf{x}_i)$.
 The approximate posterior is then calculated as a nonlinear function of the pooled feature maps $\mathrm{DNN}_{\boldsymbol{\phi}}: \hat{\mathbf{v}}_i \to \mathbf{z}_i$, which is written as    $q_{\boldsymbol{\phi}}(\mathbf{z} | \mathbf{x}_i) = \mathcal{N}(\mathbf{z} | \mathrm{DNN}_{\boldsymbol{\phi}}(\hat{\mathbf{v}}_i))$.
 For the decoder we use a feed-forward network $\mathrm{DNN}_{\boldsymbol{\theta}}: \mathbf{z}_i \to \mathbf{\tilde{v}}_i$ as before, where $\mathbf{\tilde{v}}_i$ is a reconstruction of the $\mathrm{CNN}_{\boldsymbol{\phi}}$ output $\hat{\mathbf{v}}_i$. We then apply mean squared error between the pooled feature maps and the reconstruction as the likelihood function for the distortion loss (Eq. \ref{eq:elbo}). A convolutional decoder could also be used to fully reconstruct the raw image pixels, but we found simply reconstructing the pooled feature maps to be effective for visualizing the distribution of images in two dimensions.
-
 To demonstrate the utility of convolutional VAE-SNE, we embed natural history image datasets of both shells \citep{zhang2019shell} and (\textit{Heliconius spp.}) butterflies \citep{cuthill2019deep}. We then visualize these embeddings to qualitatively assess performance of this VAE-SNE variant (Figs. \ref{fig:shell_figure}, \ref{fig:butterfly_figure}). We find that perceptually similar images are grouped together in the embedding based on complex sets of image features --- rather than simple heuristics like color --- and these groupings correspond to taxonomic relationships within the dataset, which were not explicitly included as part of the training set. This variant of VAE-SNE is functionally similar to using the perceptual distance \citep{johnson2016perceptual, wham2019measuring} as a similarity metric and likelihood function except that the model can be trained end-to-end with small batches of images directly using raw pixels instead of first preprocessing images to produce feature activations. These results demonstrate that VAE-SNE can be used to analyze very large image datasets, by loading images in small batches, and can also be extended to images with variable resolution, by integrating across feature map outputs from the CNN to remove the spatial dimension --- both of which are typically not possible with other dimension reduction algorithms. 
 
 
