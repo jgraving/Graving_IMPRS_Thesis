@@ -1,4 +1,4 @@
-\documentclass[11pt,a4paper,oneside]{book}
+\documentclass[11pt,a4paper,twoside]{book}
 
 \usepackage{amsmath}
 \usepackage{apacite}
@@ -86,13 +86,17 @@
 	\setcounter{page}{1}
 	\pagenumbering{roman}
 	\chapter*{Summary}
+	\markboth{SUMMARY}{SUMMARY}
+
 	\addcontentsline{toc}{chapter}{Summary}
 	\newpage
 	\chapter*{Zussamenfassung}
+	\markboth{ZUSSAMENFASSUNG}{ZUSSAMENFASSUNG}
     \addcontentsline{toc}{chapter}{Zussamenfassung}
 	\newpage
 	\pagenumbering{arabic}
 	\chapter*{Introduction}
+	\markboth{INTRODUCTION}{INTRODUCTION}
     \addcontentsline{toc}{chapter}{Introduction}
 
 	\par
@@ -203,7 +207,7 @@ We used Raspberry Pi 3 Model Bs (Raspberry Pi Foundation), each fitted with an 8
 
 \begin{figure}[!htb]
     \centering
-    \includegraphics{bird_figure_4}
+    \includegraphics{Graving_IMPRS_Thesis/figures/bird_figure_4.jpg}
     \caption{Barcode detections in a social perching context (photographed with the Raspberry Pi camera module). The software can easily detect visible codes in complex aviary environments and extract information about important interactions, such as direct body contact (individuals 55 and 66), that many tracking algorithms would fail to detect
 }
     \label{fig:bird_figure_4}
@@ -839,6 +843,7 @@ The code for VAE-SNE is freely available at \href{https://github.com/jgraving/va
 
 \chapter*{Discussion}
 \addcontentsline{toc}{chapter}{Discussion}
+\markboth{Discussion}{Discussion}
 \newpage
 
 \begin{appendices}
@@ -1045,7 +1050,7 @@ These results demonstrate that our re-implementation of and modification to the 
 \section{Depthwise-separable convolutions for memory-limited applications}
 In an effort to maximize model efficiency, we also experimented with replacing 3$\times$3 convolutions in our model implementations with 3$\times$3 depthwise-separable convolutions —first introduced by \cite{chollet2017xception} and now commonly used in fast, efficient “mobile” CNNs (e.g., \citealt{sandler2018mobilenetv2}). In theory this modification should both reduce the memory footprint of the model and increase inference speed. However we found that, while this does drastically decrease the memory footprint of our already memory-efficient models, it slightly decreases accuracy and does not improve inference speed, so we opt for a full 3$\times$3 convolution instead. We suspect that this discrepancy between theory and application is due to inefficient implementations of depthwise-separable convolutions in many popular deep learning frameworks, which will hopefully improve in the near future. At the moment we include this option as a hyperparameter for our Stacked DenseNet model, but we recommend using depthwise-separable convolutions only for applications that require a small memory footprint such as training on a lower-end GPU with limited memory or running inference on a mobile device.
 
-\chapter[VAE-SNE]{Appendix to ``VAE-SNE, a deep generative model for simultaneous dimensionality reduction and clustering}
+\chapter[VAE-SNE]{Appendix to ``VAE-SNE, a deep generative model for simultaneous dimensionality reduction and clustering"}
 
 \begin{table}[!htb]
 \caption{  \textbf{Ranked information preservation metric performance for nonlinear dimension reduction algorithms}.
