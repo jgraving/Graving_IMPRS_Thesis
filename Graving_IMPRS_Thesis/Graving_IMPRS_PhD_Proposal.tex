@@ -15,6 +15,8 @@
 \usepackage[toc,page]{appendix}
 %\setcounter{secnumdepth}{0}
 \usepackage{array}
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+
 
 \title{
 	\LARGE \textbf{Quantitative Methods} \\
@@ -176,11 +178,13 @@ We used Raspberry Pi 3 Model Bs (Raspberry Pi Foundation), each fitted with an 8
 \begin{table}
 \caption{Summary of the pros and cons of different camera implementations tested}
     \begin{tabular}{| m{0.2\textwidth} | m{0.4\textwidth} | m{0.4\textwidth} |}
+    \hline
          \textbf{Camera system} & \textbf{Advantages} & \textbf{Disadvantages} \\ \hline
          DSLR (Canon EOS 1200)	& Image quality. Availability of lenses and accessories. Suitable for video or photo. Low‐light performance.	& Noisy mechanical shutter (this model). Video limited to 30 min. Bulky. Costly. \\ \hline
          Action Cameras (GoPro Hero 4)	& Compact size. Image resolution and quality. Suitable for video or photo. Wide angle lens suitable for small spaces.	& Lens distortion. Limited battery life. No display (this model). Manual operation (this model). \\ \hline
          Single‐board computers/Camera module (Raspberry Pi 3 Model B with Camera V2)	&
-         Inexpensive. Compact size. Suitable for video or photo. Programmable. Network access. Expected improvements and software updates. No battery life limitation.	& Lower image quality. Fixed recording area. Difficult manual focusing.
+         Inexpensive. Compact size. Suitable for video or photo. Programmable. Network access. Expected improvements and software updates. No battery life limitation.	& Lower image quality. Fixed recording area. Difficult manual focusing. \\
+         \hline
     \end{tabular}
 \label{table:bird_table}
 \end{table}
@@ -279,13 +283,17 @@ Two of the latest contributions to the growing toolbox for quantitative behavior
 To address these problems, we introduce a new software toolkit, called \textit{DeepPoseKit}, with methods that are fast, robust, and easy-to-use. We run experiments using multiple datasets to compare our new methods with those from \cite{mathis2018deeplabcut} and \cite{pereira2019fast}, and we find that our approach offers considerable improvements. These results also demonstrate the flexibility of our toolkit for both laboratory and field situations and exemplify the wide applicability of our methods across a range of species and experimental conditions.
 
 \begin{figure}
-\begin{fullwidth}
-\includegraphics[width=0.95\linewidth]{figures/workflow_figure.pdf}
+\includegraphics[width=0.95\linewidth]{Graving_IMPRS_Thesis/figures/workflow_figure.pdf}
 
 \caption{An illustration of the workflow for DeepPoseKit. Multi-individual images are localized, tracked, and preprocessed into individual images, which is not required for single-individual image datasets. An initial image set is sampled, annotated, and then iteratively updated using the active learning approach described by \cite{pereira2019fast} (see Appendix \ref{app:training_data}). As annotations are made, the model is trained (Figure \ref{fig:model_training_figure}) with the current training set and keypoint locations are initialized for unannotated data to reduce the difficulty of further annotations. This is repeated until there is a noticeable improvement plateau for the initialized data---where the annotator is providing only minor corrections---and for the validation error when training the model (Appendix \ref{app:figures} Figure \ref{fig:training_prop}). New data from the full dataset are evaluated with the model, and the training set is merged with new examples that are sampled based on the model's predictive performance, which can be assessed with techniques described by \cite{mathis2018deeplabcut, nath2018} for identifying outlier frames and minimizing extreme prediction errors—shown here as the distribution of confidence scores predicted by the model and predicted body part positions with large temporal derivatives---indicating extreme errors. This process is repeated as necessary until performance is adequate when evaluating new data. The pose estimation model can then be used to make predictions for the full data set, and the data can be used for further analysis.}
 \label{fig:workflow_figure}
-\videosupp{A visualization of the posture data output for a group of locusts (5$\times$ speed) \url{https://youtu.be/hCa2zaoUWhs}.}
-\end{fullwidth}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{}
+    \caption{A visualization of the posture data output for a group of locusts (5$\times$ speed) \url{https://youtu.be/hCa2zaoUWhs}
+}
 \end{figure}
 
 \subsubsection{Measuring animal movement with computer vision}
@@ -328,11 +336,11 @@ The additional step of localizing and tracking individuals naturally increases t
 Here we introduce fast, flexible, and robust pose estimation methods, with a software interface---a high-level programming interface (API) and graphical user-interface (GUI) for annotations---that emphasizes usability. Our methods build on the state-of-the-art for individual pose estimation (\citealt{newell2016}; Appendix \ref{app:sota}), convolutional regression models (\citealt{Jegou16}; Appendix \ref{app:fcnn} Box \ref{box:encoder_decoder_box}), and conventional computer vision algorithms \citep{guizar2008efficient} to improve model efficiency and achieve faster, more accurate results on multiple challenging pose estimation tasks. We developed two model implementations—including a new model architecture that we call \textit{Stacked DenseNet}—and a new method for processing confidence maps called \textit{subpixel maxima} that provides fast and accurate peak detection for estimating keypoint locations with subpixel precision—even at low spatial resolutions. We also discuss a modification to incorporate a hierarchical posture graph for learning the multi-scale geometry between keypoints on the animal's body, which increases accuracy when training pose estimation models. We ran experiments to optimize our approach and compared our new models to the models from \cite{mathis2018deeplabcut} (DeepLabCut) and \cite{pereira2019fast} (LEAP) in terms of speed, accuracy, training time, and generalization ability. We benchmarked these models using three image datasets recorded in the laboratory and the field—including multiple interacting individuals that were first localized and cropped from larger, multi-individual images (see "Methods" for details). 
 
 \begin{figure}
-\begin{fullwidth}
-\includegraphics[width=0.95\linewidth]{figures/model_training_figure.pdf}
+
+\includegraphics[width=0.95\linewidth]{Graving_IMPRS_Thesis/figures/model_training_figure.pdf}
 \caption{An illustration of the model training process for our Stacked DenseNet model in DeepPoseKit (see Appendix \ref{app:cnn} for details about training models). Input images $x$ (\textbf{top-left}) are augmented (\textbf{bottom-left}) with various spatial transformations (rotation, translation, scale, etc.) followed by noise transformations (dropout, additive noise, blurring, contrast, etc.) to improve the robustness and generalization of the model. The ground truth annotations are then transformed with matching spatial augmentations (not shown for the sake of clarity) and used to draw the confidence maps $y$ for the keypoints and hierarchical posture graph (\textbf{top-right}). The images $x$ are then passed through the network to produce a multidimensional array $g(f(x))$—a stack of images corresponding to the keypoint and posture graph confidence maps for the ground truth $y$. Mean squared error between the outputs for both networks $g(f(x))$ and $f^{\prime}(x)$ and the ground truth data $y$ is then minimized (\textbf{bottom-right}), where $f^{\prime}(x)$ indicates a subset of the output from $f(x)$—only those feature maps being optimized to reproduce the confidence maps for the purpose of intermediate supervision (Appendix \ref{app:sota}). The loss function is minimized until the validation loss stops improving—indicating that the model has converged or is starting to overfit to the training data.}
 \label{fig:model_training_figure}
-\end{fullwidth}
+
 \end{figure}
 
 
@@ -373,14 +381,19 @@ To further compare models, we used our zebra dataset to assess the training time
 We also show that our Stacked DenseNet model achieves good generalization with few training examples and without the use of transfer learning (Appendix \ref{app:figures} Figure \ref{fig:training_prop}). These results demonstrate that, when combined with data augmentation, as few as five training examples can be used as an initial training set for labelling keypoints with active learning (Figure \ref{fig:workflow_figure}). Additionally, because our analysis shows that generalization to new data plateaus after approximately 100 labeled training examples, it appears that 100 training examples is a reasonable minimum size for a training set---although the exact number will likely change depending the variance of the image data being annotated. To further examine the effect of transfer learning on model generalization, we compared performance between the DeepLabCut model \citep{mathis2018deeplabcut} initialized with weights pretrained on the ImageNet database \citep{deng2009imagenet} vs. the same model with randomly-initialized weights (Appendix \ref{app:figures} Figure \ref{fig:training_prop}). As postulated by \cite{mathis2018deeplabcut}, we find that transfer learning does provide some benefit to the DeepLabCut model's ability to generalize. However, the effect size of this improvement is small with a mean reduction in Euclidean error of <0.5 pixel. Together these results indicate that transfer learning is helpful, but not required, for deep learning models to achieve good generalization with limited training data.
 
 \begin{figure}
-\begin{fullwidth}
-\includegraphics[width=0.95\linewidth]{figures/speed_accuracy_api_figure.pdf}
+
+\includegraphics[width=0.95\linewidth]{Graving_IMPRS_Thesis/figures/speed_accuracy_api_figure.pdf}
 \caption{Our Stacked DenseNet model estimates posture at approximately 2$\times$—or greater—the speed of the LEAP model \citep{pereira2019fast} and the DeepLabCut model \citep{mathis2018deeplabcut} while also achieving similar accuracy to the DeepLabCut model \citep{mathis2018deeplabcut}—shown here as mean accuracy $(1 + \textrm{Euclidean error})^{-1}$ for our most challenging dataset of multiple interacting Grévy's zebras (\textit{E. grevyi}) recorded in the wild (\textbf{a}). See Figure \ref{fig:speed_accuracy_api} supplement \ref{figsupp:model_posterior_comparisons} for further details. Our software interface is designed to be straightforward but flexible. We include many options for expert users to customize model training with sensible default settings to make pose estimation as easy as possible for beginners. For example, training a model and running inference on new data requires writing only a few lines of code and specifying some basic settings (\textbf{b}).}
 \label{fig:speed_accuracy_api}
-\figsupp{Euclidean error distributions for each model across our three datasets. Letter-value plots (\textbf{left}) show the raw error distributions for each model. Violinplots of the posterior distributions for the mean and variance (\textbf{right}) show statistical differences between the error distributions. Overall the LEAP model \citep{pereira2019fast} was the worst performer on every dataset in terms of both mean and variance. Our Stacked Densenet model was the best performer for the fly dataset, while our Stacked DenseNet model and the DeepLabCut model \citep{mathis2018deeplabcut} both performed equally well on the locust and zebra datasets. The posteriors for the DeepLabCut model \citep{mathis2018deeplabcut} and our Stacked DenseNet model are highly overlapping for these datasets, which suggests they are not statistically discernible from one another. Our Stacked Hourglass model \citep{newell2016} performed equally to the DeepLabCut model \citep{mathis2018deeplabcut} and our Stacked DenseNet model for the locust dataset but performed slightly worse for the fly and zebra datasets.}{\includegraphics[width=\linewidth]{figures/model_posteriors_figure.pdf}}\label{figsupp:model_posterior_comparisons}
 %\figdata{Raw prediction errors used for model comparisons in Figure \ref{fig:speed_accuracy_api}-Figure supplement \ref{figsupp:model_posterior_comparisons}. See "Methods" for details.}\label{figdata:model_comparisons}
 
-\end{fullwidth}
+
+\end{figure}
+\begin{figure}
+    \centering
+\includegraphics[width=\linewidth]{Graving_IMPRS_Thesis/figures/model_posteriors_figure.pdf}
+\caption{Euclidean error distributions for each model across our three datasets. Letter-value plots (\textbf{left}) show the raw error distributions for each model. Violinplots of the posterior distributions for the mean and variance (\textbf{right}) show statistical differences between the error distributions. Overall the LEAP model \citep{pereira2019fast} was the worst performer on every dataset in terms of both mean and variance. Our Stacked Densenet model was the best performer for the fly dataset, while our Stacked DenseNet model and the DeepLabCut model \citep{mathis2018deeplabcut} both performed equally well on the locust and zebra datasets. The posteriors for the DeepLabCut model \citep{mathis2018deeplabcut} and our Stacked DenseNet model are highly overlapping for these datasets, which suggests they are not statistically discernible from one another. Our Stacked Hourglass model \citep{newell2016} performed equally to the DeepLabCut model \citep{mathis2018deeplabcut} and our Stacked DenseNet model for the locust dataset but performed slightly worse for the fly and zebra datasets.}
+\label{figsupp:model_posterior_comparisons}
 \end{figure}
 
 
@@ -422,35 +435,48 @@ Our locust dataset consisted of a group of 100 locusts in a circular plastic are
 After positional tracking, the videos were then cropped using the egocentric coordinates of each individual and saved as separate videos---one for each individual. The images used for each training set were randomly selected using the k-means sampling procedure (with k=10) described by \cite{pereira2019fast} (Appendix \ref{app:training_data}) to reduce correlation between sampled images. After annotating the images with keypoints, we rotationally and translationally aligned the images and keypoints using the central body axis of the animal in each labeled image. This step allowed us to more easily perform data augmentations (see "Model training") that allow the model to make accurate predictions regardless of the animal's body size and orientation (see Appendix \ref{app:overparam}). However, this preprocessing step is not a strict requirement for training, and there is no requirement for this preprocessing step when making predictions on new unlabeled data, such as with the methods described by \cite{pereira2019fast} (Appendix \ref{app:overparam}). Before training each model we split each annotated dataset into randomly selected training and validation sets with 90\% training examples and 10\% validation examples, unless otherwise noted. The details for each dataset are described in Table \ref{tab:datasets}.
 
 \begin{figure}
-\begin{fullwidth}
+
 \begin{center}
-\includegraphics[width=0.9\linewidth]{figures/posture_confidence_map_figure.pdf}
+\includegraphics[width=0.9\linewidth]{Graving_IMPRS_Thesis/figures/posture_confidence_map_figure.pdf}
 \end{center}
 \caption{A visualization of the datasets we used to evaluate our methods (Table \ref{tab:datasets}). For each dataset, confidence maps for the keypoints (bottom-left) and posture graph (top-right) are illustrated using different colors for each map. These outputs are from our Stacked DenseNet model at $\frac{1}{4}\times$ resolution.}
-\videosupp{A video of a behaving fly from \cite{pereira2019fast} with pose estimation outputs visualized \url{https://youtu.be/lsnex6k4NRs}}\label{videosupp:sv1}
-\videosupp{A video of a behaving locust with pose estimation outputs visualized. \url{https://youtu.be/b0DyyLP_Czk}}\label{videosupp:sv2}
-\videosupp{A video of a behaving Grévy's zebra with pose estimation outputs visualized. \url{https://youtu.be/dSjaphoGHAY}}\label{videosupp:sv3}
 \label{fig:posture_confidence_map_figure}
-\end{fullwidth}
+
+
+\end{figure}
+\begin{figure}
+    \centering
+    \caption{A video of a behaving fly from \cite{pereira2019fast} with pose estimation outputs visualized \url{https://youtu.be/lsnex6k4NRs}}
+    \label{videosupp:sv1}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{A video of a behaving locust with pose estimation outputs visualized. \url{https://youtu.be/b0DyyLP_Czk}}
+    \label{videosupp:sv2}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \caption{A video of a behaving Grévy's zebra with pose estimation outputs visualized. \url{https://youtu.be/dSjaphoGHAY}}
+    \label{videosupp:sv3}
 \end{figure}
 
 
 \begin{table}
-\begin{fullwidth}
+
 \caption{\label{tab:datasets}Datasets used for model comparisons.}
 % Use "S" column identifier to align on decimal point 
 \setlength{\tabcolsep}{2pt}
 \centering
-\begin{tabular}{|l{1cm}|l{1cm}|r{1cm}|r{1cm}|r{1cm}|l{1cm}|l{1cm}|}
-\toprule
+\begin{tabular}{|m{0.14\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|m{0.14\textwidth}|}
+\hline
 {Name} & Species   & {Resolution}  & {$\#$ Images}  & {$\#$ Keypoints} & {Individuals} & Source    \\ \hline
-\midrule
 Vinegar fly  & \textit{Drosophila melanogaster} & {192$\times$192} & 1500 & 32 & Single & \cite{pereira2019fast} \\ \hline
 Desert locust     & \textit{Schistocerca gregaria}       & 160$\times$160           & 800    & 35 & Multiple  & This paper\\ \hline
 Grévy's zebra      & \textit{Equus grevyi}      & 160$\times$160              & 900    & 9 & Multiple & This paper \\ \hline
-\bottomrule
 \end{tabular}
-\end{fullwidth}
+
 \end{table}
 
 \subsubsection{Model training}
@@ -481,69 +507,61 @@ where $X$ is the design matrix composed of binary indicator variables for each p
 
 \begin{appendices}
 \section{Chapter 2}
-\begin{figure}
-\begin{fullwidth}
-\centering
-\includegraphics[width=0.60\linewidth]{figures/downsample_inference_speed.pdf}
-\caption{Our subpixel maxima algorithm increases speed without decreasing accuracy. Prediction accuracy on the fly dataset is maintained across downsampling configurations (\textbf{a}). Letter-value plots (\textbf{a-top}) show the raw error distributions for each configuration. Visualizations of the credible intervals (99\% highest-density region) of the posterior distributions for the mean and variance (\textbf{a-bottom}) illustrate statistical differences between the error distributions, where using subpixel maxima decreases both the mean and variance of the error distribution. Inference speed is fast and can be run in real-time on single images (batch size = 1) at $\sim$30-110Hz or offline (batch size = 100) upwards of 1000Hz (\textbf{b}). Plots show the inference speeds for our Stacked DenseNet model across downsampling configurations as well as the other models we tested for each of our datasets. }
-\label{fig:downsample_inference_speed}
-
-\figdata{Raw prediction errors for experiments in Appendix \ref{app:figures} Figure \ref{fig:downsample_inference_speed}a. See "Methods" for details.}\label{figdata:downsampling}
-
-\end{fullwidth}
-\end{figure}
-
-\begin{figure}
-\begin{fullwidth}
-\centering
-\includegraphics[width=0.76\linewidth]{figures/graph_error_figure.pdf}
-\caption{Predicting the multi-scale geometry of the posture graph reduces error. Letter-value plots (\textbf{top}) show the raw error distributions for each experiment. Visualizations of the posterior distributions for the mean and variance (\textbf{bottom}) show statistical differences between the error distributions. Predicting the posture graph decreases both the mean and variance of the error distribution.}
-\label{fig:graph_error_figure}
-
-\figdata{Raw prediction errors for experiments in Appendix \ref{app:figures} Figure \ref{fig:graph_error_figure}. See "Methods" for details.}\label{figdata:graph_error}
-
-
-\end{fullwidth}
-\end{figure}
-
-\begin{figure}
-\begin{fullwidth}
-\centering
-\includegraphics[width=0.8\linewidth]{figures/training_time_figure.pdf}
-\caption{Training time required for our Stacked DenseNet model, the DeepLabCut model \citep{mathis2018deeplabcut}, and the LEAP model \citep{pereira2019fast} (n=15 per model) using our zebra dataset. Boxplots and swarm plots (\textbf{left}) show the total training time to convergence (<0.001 improvement in validation loss for 50 epochs). Line plots (\textbf{right}) illustrate the Euclidean error of the validation set during training, where error bars show bootstrapped (n=1000) 99\% confidence intervals of the mean. Fully training models to convergence requires only a few hours of optimization (\textbf{left}) with reasonable accuracy reached after only 1 hour (\textbf{right}) for our Stacked DenseNet model.}
-\label{fig:training_time}
-
-\figdata{Total training time for each model in Appendix \ref{app:figures} Figure \ref{fig:training_time}.}\label{figdata:train_time1}
-
-\figdata{Mean euclidean error as a function of training time for each model in Appendix \ref{app:figures} Figure \ref{fig:training_time}.}\label{figdata:train_time2}
-
-\end{fullwidth}
-\end{figure}
-
-\begin{figure}
-\begin{fullwidth}
-\centering
-\includegraphics[width=\linewidth]{figures/training_data_proportion_figure.pdf}
-\caption{A comparison of prediction accuracy with different numbers of training examples from our zebra dataset. The error distributions shown as letter-value plots (\textbf{top}) illustrate the Euclidean error for the remainder of the dataset not used for training---with a total of 900 labeled examples in the dataset. Line plots (\textbf{bottom}) show posterior credible intervals (99\% highest-density region) for the mean and variance of the error distributions. We tested our Stacked DenseNet model; the DeepLabCut model \citep{mathis2018deeplabcut} with transfer learning---i.e., with weights pretrained on ImageNet \citep{deng2009imagenet}; the same model without transfer learning---i.e., with randomly-initialized weights; and the LEAP model \citep{pereira2019fast}. Our Stacked DenseNet model achieves high accuracy using few training examples without the use the transfer learning. Using pretrained weights does slightly decrease overall prediction error for the DeepLabCut model \citep{mathis2018deeplabcut}, but the effect size is relatively small.}
-\label{fig:training_prop}
-
-\figdata{Raw prediction errors for experiments in Appendix \ref{app:figures} Figure \ref{fig:training_prop}. See "Methods" for details.}\label{figdata:train_prop}
-
-\end{fullwidth}
-\end{figure}
-
-
-
-
-
-%\begin{figure}
-%\begin{fullwidth}
-%\centering
-%\includegraphics[width=0.75\linewidth]{figures/model_posteriors_figure.pdf}
-%\caption{Euclidean error distributions for each model across our three datasets. Letter-value plots (\textbf{left}) show the raw error distributions for each model. Histograms of the posterior distributions for the mean and variance (\textbf{right}) show statistical differences between the error distributions. Overall the LEAP model \citept{pereira2019fast} was the worst performer on every dataset in terms of both mean and variance. Our implementation of Stacked Densenet was the best performer for the fly dataset, while Stacked DenseNet and DeepLabCut both performed equally well on the locust and zebra datasets. The posteriors for DeepLabCut \citep{mathis2018deeplabcut} and our Stacked DenseNet model are highly overlapping for these datasets, which suggests they are not statistically discernible from one another. The Stacked Hourglass \citep{newell2016} model performed slightly worse than DeepLabCut and our Stacked DenseNet model for all datasets.}
-%\label{fig:model_posteriors_figure}
-%\end{fullwidth}
-%\end{figure}
+\subsection{Supplemental Figures}
+    \label{app:figures}
+    \begin{figure}
+    
+    \centering
+    \includegraphics[width=0.60\linewidth]{Graving_IMPRS_Thesis/figures/downsample_inference_speed.pdf}
+    \caption{Our subpixel maxima algorithm increases speed without decreasing accuracy. Prediction accuracy on the fly dataset is maintained across downsampling configurations (\textbf{a}). Letter-value plots (\textbf{a-top}) show the raw error distributions for each configuration. Visualizations of the credible intervals (99\% highest-density region) of the posterior distributions for the mean and variance (\textbf{a-bottom}) illustrate statistical differences between the error distributions, where using subpixel maxima decreases both the mean and variance of the error distribution. Inference speed is fast and can be run in real-time on single images (batch size = 1) at $\sim$30-110Hz or offline (batch size = 100) upwards of 1000Hz (\textbf{b}). Plots show the inference speeds for our Stacked DenseNet model across downsampling configurations as well as the other models we tested for each of our datasets. }
+    \label{fig:downsample_inference_speed}
+    
+    
+    \end{figure}
+    
+    \begin{figure}
+    
+    \centering
+    \includegraphics[width=0.76\linewidth]{Graving_IMPRS_Thesis/figures/graph_error_figure.pdf}
+    \caption{Predicting the multi-scale geometry of the posture graph reduces error. Letter-value plots (\textbf{top}) show the raw error distributions for each experiment. Visualizations of the posterior distributions for the mean and variance (\textbf{bottom}) show statistical differences between the error distributions. Predicting the posture graph decreases both the mean and variance of the error distribution.}
+    \label{fig:graph_error_figure}
+    
+    
+    
+    \end{figure}
+    
+    \begin{figure}
+    
+    \centering
+    \includegraphics[width=0.8\linewidth]{Graving_IMPRS_Thesis/figures/training_time_figure.pdf}
+    \caption{Training time required for our Stacked DenseNet model, the DeepLabCut model \citep{mathis2018deeplabcut}, and the LEAP model \citep{pereira2019fast} (n=15 per model) using our zebra dataset. Boxplots and swarm plots (\textbf{left}) show the total training time to convergence (<0.001 improvement in validation loss for 50 epochs). Line plots (\textbf{right}) illustrate the Euclidean error of the validation set during training, where error bars show bootstrapped (n=1000) 99\% confidence intervals of the mean. Fully training models to convergence requires only a few hours of optimization (\textbf{left}) with reasonable accuracy reached after only 1 hour (\textbf{right}) for our Stacked DenseNet model.}
+    \label{fig:training_time}
+    
+    
+    \end{figure}
+    
+    \begin{figure}
+    
+    \centering
+    \includegraphics[width=\linewidth]{Graving_IMPRS_Thesis/figures/training_data_proportion_figure.pdf}
+    \caption{A comparison of prediction accuracy with different numbers of training examples from our zebra dataset. The error distributions shown as letter-value plots (\textbf{top}) illustrate the Euclidean error for the remainder of the dataset not used for training---with a total of 900 labeled examples in the dataset. Line plots (\textbf{bottom}) show posterior credible intervals (99\% highest-density region) for the mean and variance of the error distributions. We tested our Stacked DenseNet model; the DeepLabCut model \citep{mathis2018deeplabcut} with transfer learning---i.e., with weights pretrained on ImageNet \citep{deng2009imagenet}; the same model without transfer learning---i.e., with randomly-initialized weights; and the LEAP model \citep{pereira2019fast}. Our Stacked DenseNet model achieves high accuracy using few training examples without the use the transfer learning. Using pretrained weights does slightly decrease overall prediction error for the DeepLabCut model \citep{mathis2018deeplabcut}, but the effect size is relatively small.}
+    \label{fig:training_prop}
+    
+    
+    \end{figure}
+    
+    
+    
+    
+    
+    %\begin{figure}
+    %
+    %\centering
+    %\includegraphics[width=0.75\linewidth]{Graving_IMPRS_Thesis/figures/model_posteriors_figure.pdf}
+    %\caption{Euclidean error distributions for each model across our three datasets. Letter-value plots (\textbf{left}) show the raw error distributions for each model. Histograms of the posterior distributions for the mean and variance (\textbf{right}) show statistical differences between the error distributions. Overall the LEAP model \citept{pereira2019fast} was the worst performer on every dataset in terms of both mean and variance. Our implementation of Stacked Densenet was the best performer for the fly dataset, while Stacked DenseNet and DeepLabCut both performed equally well on the locust and zebra datasets. The posteriors for DeepLabCut \citep{mathis2018deeplabcut} and our Stacked DenseNet model are highly overlapping for these datasets, which suggests they are not statistically discernible from one another. The Stacked Hourglass \citep{newell2016} model performed slightly worse than DeepLabCut and our Stacked DenseNet model for all datasets.}
+    %\label{fig:model_posteriors_figure}
+    %
+    %\end{figure}
 
 
 
@@ -585,7 +603,7 @@ In the case of \textit{multiple pose estimation} where an image contains many in
 \begin{figure}
 
 \begin{center}
-\includegraphics[width=0.5\linewidth]{figures/encoder_decoder_figure.pdf}
+\includegraphics[width=0.5\linewidth]{Graving_IMPRS_Thesis/figures/encoder_decoder_figure.pdf}
 \end{center}
 \caption{An illustration of the basic encoder-decoder design. The encoder converts the input images into spatial features, and the decoder transforms spatial features to the desired output.}\label{fig:encoder_decoder_figure}
 \end{figure}
@@ -599,12 +617,12 @@ A popular type of F-CNN (Appendix \ref{app:fcnn}) for solving posture regression
 \cite{Jegou16} are the latest to advance the encoder-decoder paradigm. These researchers introduced a fully-convolutional version of \citeauthor{huang2017densely}’s (\citeyear{huang2017densely}) \textit{DenseNet} architecture known as a \textit{fully-convolutional DenseNet}, or \textit{FC-DenseNet}.  FC-DenseNet’s key improvement is an elaborate set of feed-forward residual connections where the input to each convolutional layer is a concatenated stack of feature maps from all previous layers. This densely-connected design was motivated by the insight that many state-of-the-art models learn a large proportion of redundant features. Most CNNs are not designed so that the final output layers can access all feature maps in the network simultaneously, and this limitation causes these networks to “forget” and “relearn” important features as the input images are transformed to produce the output. In the case of the incredibly popular ResNet-101 \citep{he2016deep} nearly 40\% of the features can be classified as redundant \citep{ayinde2018building}. A densely-connected architecture has the advantages of reduced feature redundancy, increased feature reuse, enhanced feature propagation from early layers to later layers, and subsequently, a substantial reduction in the number of parameters needed to achieve state-of-the-art results \citep{huang2017densely}. Recent work has also shown that DenseNet’s elaborate residual connections have the pleasant side-effect of convexifying the loss landscape during optimization \citep{li2018visualizing}, which allows for faster optimization and increases the likelihood of reaching a good optimum.
 
 \begin{figure}
-\begin{fullwidth}
+
 \centering
-\includegraphics[width=0.75\linewidth]{figures/stacked_densenet_figure.pdf}
+\includegraphics[width=0.75\linewidth]{Graving_IMPRS_Thesis/figures/stacked_densenet_figure.pdf}
 \caption{An illustration showing the progression of encoder-decoder architectures from the literature—ordered by performance from top to bottom (see Appendix \ref{app:fcnn} Box \ref{box:encoder_decoder_box} for further details). Most advances in performance have come from adding connections between layers in the network, culminating in FC-DenseNet from \citet{Jegou16}. Lines in each illustration indicate connections between convolutional blocks with the thickness of the line indicating the magnitude of information flow between layers in the network. The size of each convolution block indicates the relative number of feature maps (width) and spatial scale (height). The callout for FC-DenseNet (\citealt{Jegou16}; \textbf{bottom-left}) shows the elaborate set of skip connections within each densely-connected convolutional block as well as our additions of bottleneck and compression layers (described by \citealt{huang2017densely}) to increase efficiency (Appendix \ref{app:implementation})}
 \label{fig:stacked_densenet_figure}
-\end{fullwidth}
+
 
 \end{figure}
 
@@ -657,18 +675,29 @@ These results demonstrate that our re-implementation of and modification to the 
 
  
 \begin{figure}
-\includegraphics[width=0.8\linewidth]{figures/dlc_comparison_errors.pdf}
+\includegraphics[width=0.8\linewidth]{Graving_IMPRS_Thesis/figures/dlc_comparison_errors.pdf}
 \caption{Prediction errors for the odor-trail mouse dataset from \cite{mathis2018deeplabcut} using the original implementation of the DeepLabCut model \citep{mathis2018deeplabcut, nath2018} and our modified version of this model implemented in DeepPoseKit. Mean prediction error is slightly lower for the DeepPoseKit implementation, but there is no discernible difference in variance. These results indicate that the models achieve nearly identical prediction accuracy despite modification. We also provide qualitative comparisons of these results in Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-Figure supplements \ref{figsupp:dlc_tsplot} and \ref{figsupp:dlc_dxtsplot}, and Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-video \ref{videosupp:dlcsv1}.}
 \label{fig:dlc_comparison}
-\figsupp{Plots of the predicted output for Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-video \ref{videosupp:dlcsv1} comparing our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. Note the many fast jumps in position for the original verison from \cite{mathis2018deeplabcut}, which indicates prediction errors. }{\includegraphics[width=\linewidth]{figures/dlc_tsplot.pdf}}\label{figsupp:dlc_tsplot}
+\end{figure}
 
-\figsupp{Plots of the temporal derivatives of the predicted output for Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-video \ref{videosupp:dlcsv1} comparing our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. Note the many fast jumps in position for the original verison from \cite{mathis2018deeplabcut}, which indicates prediction errors. }{\includegraphics[width=\linewidth]{figures/dlc_dxtsplot.pdf}}\label{figsupp:dlc_dxtsplot}
+\begin{figure}
+    \centering
+\includegraphics[width=\linewidth]{Graving_IMPRS_Thesis/figures/dlc_tsplot.pdf}    
+\caption{Plots of the predicted output for Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-video \ref{videosupp:dlcsv1} comparing our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. Note the many fast jumps in position for the original verison from \cite{mathis2018deeplabcut}, which indicates prediction errors. }
+\label{figsupp:dlc_tsplot}
+\end{figure}
 
-\videosupp{A video comparison of the tracking output of our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. \url{https://youtu.be/YFmO5C0hUw4}}\label{videosupp:dlcsv1}
+\begin{figure}
+    \centering
+\includegraphics[width=\linewidth]{Graving_IMPRS_Thesis/figures/dlc_dxtsplot.pdf}
+\caption{Plots of the temporal derivatives of the predicted output for Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}-video \ref{videosupp:dlcsv1} comparing our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. Note the many fast jumps in position for the original verison from \cite{mathis2018deeplabcut}, which indicates prediction errors}
+\label{figsupp:dlc_dxtsplot}
+\end{figure}
 
-\figdata{Raw prediction errors for our DeepLabCut model \citep{mathis2018deeplabcut} reimplemented in DeepPoseKit in Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}. See "Methods" for details.}\label{figdata:dlc1}
-\figdata{Raw prediction errors for the original DeepLabCut model from \cite{mathis2018deeplabcut} in Appendix \ref{app:implementation} Figure \ref{fig:dlc_comparison}. See "Methods" for details.}\label{figdata:dlc2}
-
+\begin{figure}
+    \centering
+    \caption{A video comparison of the tracking output of our implementation of the DeepLabCut model \citep{mathis2018deeplabcut} in DeepPoseKit vs. the original implementation from \cite{mathis2018deeplabcut, nath2018}. \url{https://youtu.be/YFmO5C0hUw4}}
+\label{videosupp:dlcsv1}
 \end{figure}
 
 
@@ -681,6 +710,7 @@ In an effort to maximize model efficiency, we also experimented with replacing 3
 \end{appendices}
 
 \pagebreak
+\nocite{*}
 \bibliographystyle{apacite}
 \addcontentsline{toc}{section}{References}
 \bibliography{Graving_IMPRS_PhD_Proposal_Bib.bib}
