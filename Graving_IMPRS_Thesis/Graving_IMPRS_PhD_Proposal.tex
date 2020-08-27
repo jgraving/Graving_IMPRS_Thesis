@@ -127,7 +127,7 @@
     
     Barcodes represent a major advance in data quality at a comparatively low cost, enabling researchers to simultaneously collect data from multiple individuals, assess interactions and associations in different contexts, and conduct experiments in complex, naturalistic environments. Here, we describe how to implement such a tracking system for songbirds in a captive experimental setup, which allows for tracking of individuals’ positions and orientations over time. We particularly focus on the design and deployment procedures for backpack‐mounted barcodes to ensure bird safety and reliable data collection, as well as the required monitoring and maintenance of the system over long periods of time. We discuss the materials used, different camera systems for capturing image data, and other considerations associated with data collection, with a particular focus on how to implement this system cheaply and effectively. We then provide details on the process of extracting data from the images, and what software is available for this purpose, highlighting opportunities for automation of the entire processing pipeline. Finally, we discuss potential behaviours that can be measured, using such a system and possible applications in further studies.
 
-\section{Materials and Methods}
+\section{Methods}
 \subsection{Study population}
 We tested our barcode tracking system on domesticated zebra finches Taeniopygia guttata. The zebra finch is a model species widely used in behavioural studies (Boogert et al., 2014; David, Auclair, & Cezilly, 2011; Farine et al., 2015; Kriengwatana, Spierings, & ten Cate, 2016; Mariette & Griffith, 2012; Ruploh, Bischof, & von Engelhardt, 2014; Schuett, Dall, & Royle, 2011; Wuerz & Kruger, 2015). They are social birds, living in colonies of 50–100 individuals (Zann, 1994), and in captivity can be kept in large groups, which makes them a suitable organism to test our tracking system.
 
@@ -293,7 +293,7 @@ The raw tracking data files, including the distance from the food patch, that ar
 
 
 \newpage 
-	\chapter[DeepPoseKit, animal pose estimation]{DeepPoseKit, a software toolkit for fast and robust animal pose estimation using deep learning \\ \vspace{10mm} \Large Jacob M. Graving, Daniel Chae, Hemal Naik, Liang Li, Benjamin Koger, Blair R. Costelloe, and Iain D. Couzin}
+	\chapter[DeepPoseKit]{DeepPoseKit, a software toolkit for fast and robust animal pose estimation using deep learning \\ \vspace{10mm} \Large Jacob M. Graving, Daniel Chae, Hemal Naik, Liang Li, Benjamin Koger, Blair R. Costelloe, and Iain D. Couzin}
 	
 	\normalsize
 	\section{Abstract}
@@ -531,7 +531,7 @@ p(y|X,\theta_{\mu},\theta_{\phi}) &\sim Gamma(\alpha, \beta)\\
 where $X$ is the design matrix composed of binary indicator variables for each pose estimation model, $\theta_{\mu}$ and $\theta_{\phi}$ are vectors of intercepts, $h(\cdot)$ is the softplus function \citep{dugas2001incorporating}—or $h(x) = \log{(1+e^{\mathbf{x}})}$—used to enforce positivity of $\mu$ and $\phi$, and $y$ is the Euclidean error of the pose estimation model. Parameterizing our error distributions in this way allows us to calculate the posterior distributions for the mean $\mathrm{E}[y] = \alpha\beta^{-1} \equiv \mu$ and variance $\mathrm{Var}[y] = \alpha\beta^{-2} \equiv \phi$. This parameterization then provides us with a statistically rigorous way to assess differences in model accuracy in terms of both central tendency and spread—accounting for both epistemic uncertainty (unknown unknowns; e.g., parameter uncertainty) and aleatoric uncertainty (known unknowns; e.g., data variance). Details of how we fitted these models can be found in Appendix \ref{app:bayesian}.
 
 \newpage 
-	\chapter[VAE-SNE, a deep generative model]{VAE-SNE, a deep generative model for simultaneous dimensionality reduction and clustering \\ \vspace{10mm} \Large Jacob M. Graving, and Iain D. Couzin}
+	\chapter[VAE-SNE]{VAE-SNE, a deep generative model for simultaneous dimensionality reduction and clustering \\ \vspace{10mm} \Large Jacob M. Graving, and Iain D. Couzin}
 
 \section{Abstract}
 
