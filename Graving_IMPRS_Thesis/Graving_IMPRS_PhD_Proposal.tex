@@ -23,6 +23,8 @@
 \usepackage{amsmath}
 \usepackage{todonotes}
 \usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+
 
 
 %\usepackage[superscript, compress]{cite}
@@ -98,6 +100,8 @@
 	\pagenumbering{arabic}
 	\chapter*{Introduction}
 	\markboth{INTRODUCTION}{INTRODUCTION}
+    The study of animal behavior is a fundamental pursuit for answering scientific questions across a variety of fields in biology --- including neuroscience, psychology, ecology, genetics, and evolution. While the task of collecting accurate and complete behavioral data has typically always been difficult, laborious, and subjective, in recent years there has been rapid progress in methods for automatically quantifying behavior objectively and at scale. This progress has been primarily driven by the emergence of new computational hardware for imaging and sensing body movement in conjunction with new computational software and algorithms for measuring and modelling behavior. 
+	
     \addcontentsline{toc}{chapter}{Introduction}
     \newpage
 \newpage 
@@ -515,7 +519,8 @@ We trained our models (Figure \ref{fig:model_training_figure}) using mean square
 \subsection{Model evaluation}
 Machine learning models are typically evaluated for their ability to generalize to new data, known as \textit{predictive performance}, using a held-out \textit{test set}—a subsample of annotated data that is not used for training or validation. However, due to the small size of the datasets used for making comparisons, we elected to use only a validation set for model evaluation, as using an overly small training or test set can bias assessments of a model's predictive performance \citep{kuhn2013applied}. Generally a test set is used to avoid biased performance measures caused by overfitting the model hyperparameters to the validation set. However, we did not adjust our model architecture to achieve better performance on our validation set—only to achieve fast inference speeds. While we did use validation error to decide when to lower the learning rate during training and when to stop training, lowering the learning rate in this way should have no effect on the generalization ability of the model, and because we heavily augment our training set during optimization---forcing the model to learn a much larger data distribution than what is included in the training and validation sets—overfitting to the validation set is unlikely. We also demonstrate the generality of our results for each experiment by randomly selecting a new validation set with each replicate. All of these factors make the Euclidean error for the unaugmented validation set a reasonable measure of the predictive performance for each model. 
 
-The inference speed for each model was assessed by running predictions on 100,000 randomly generated images with a batch size of 1 for real-time speeds and a batch size of 100 for offline speeds, unless otherwise noted. Our hardware consisted of a Dell Precision Tower 7910 workstation (Dell, Inc.) running Ubuntu Linux v18.04 with 2$\times$ Intel Xeon E5-2623 v3 CPUs (8 cores, 16 threads at 3.00GHz), 64GB of RAM, a Quadro P6000 GPU and a Titan Xp GPU (NVIDIA Corporation). We used both GPUs (separately) for training models and evaluating predictive performance, but we only used the faster Titan Xp GPU for benchmarking inference speeds and training time. While the hardware we used for development and testing is on the high-end of the current performance spectrum, there is no requirement for this level of performance, and our software can easily be run on lower-end hardware. We evaluated inference speeds on multiple consumer-grade desktop computers and found similar performance (±10$\%$) when using the same GPU; however, training speed depends more heavily other hardware components like the CPU and hard disk. 
+The inference speed for each model was assessed by running predictions on 100,000 randomly generated images with a batch size of 1 for real-time speeds and a batch size of 100 for offline speeds, unless otherwise noted. Our hardware consisted of a Dell Precision Tower 7910 workstation (Dell, Inc.) running Ubuntu Linux v18.04 with 2$\times$ Intel Xeon E5-2623 v3 CPUs (8 cores, 16 threads at 3.00GHz), 64GB of RAM, a Quadro P6000 GPU and a Titan Xp GPU (NVIDIA Corporation). We used both GPUs (separately) for training models and evaluating predictive performance, but we only used the faster Titan Xp GPU for benchmarking inference speeds and training time. While the hardware we used for development and testing is on the high-end of the current performance spectrum, there is no requirement for this level of performance, and our software can easily be run on lower-end hardware. We evaluated inference speeds on multiple consumer-grade desktop computers and found similar performance ($
+\pm$ 10$\%$) when using the same GPU; however, training speed depends more heavily other hardware components like the CPU and hard disk. 
 
 \subsection{Assessing prediction accuracy with Bayesian inference}
 To more rigorously assess performance differences between models, we parameterized the Euclidean error distribution for each experiment by fitting a Bayesian linear model with a Gamma-distributed likelihood function. This model takes the form:
