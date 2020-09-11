@@ -34,7 +34,9 @@
 \PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
 %\usepackage{nohyperref}  % This makes hyperref commands do nothing without errors
 \usepackage[utf8]{inputenc}
-\hypersetup{draft}
+
+% use to remove links for printing
+%\hypersetup{draft}
 
 
 %\usepackage[superscript, compress]{cite}
@@ -63,6 +65,13 @@
   \addtocounter{footnote}{-1}%
   \endgroup
 }
+\def\blankpage{%
+      \clearpage%
+      \thispagestyle{empty}%
+      \addtocounter{page}{-1}%
+      \null%
+      \clearpage}
+
 
 \title{
 	\HUGE \textbf{Computer Vision and Deep Learning Methods for Measuring and Modeling Animal Behavior} \\
@@ -91,9 +100,10 @@
 \begin{document}
 	\maketitle
 	\pagenumbering{gobble}
-    \newpage
-    Page intentionally left blank
-    \newpage
+    \blankpage
+    %\newpage
+    %Page intentionally left blank
+    %\newpage
 	\tableofcontents
 	\setcounter{page}{1}
 	\pagenumbering{roman}
