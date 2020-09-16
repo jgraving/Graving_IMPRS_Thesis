@@ -20,7 +20,7 @@
 \usepackage{array}
 \usepackage{nimbussans}
 \renewcommand{\familydefault}{\sfdefault}
-
+\usepackage{color, soul}
 % use Unicode characters - try changing the option if you run into troubles with special characters (e.g., umlauts)
 \usepackage{mathtools}
 \usepackage{isomath}
@@ -29,6 +29,9 @@
 \usepackage{todonotes}
 \usepackage{graphicx}
 \usepackage{gensymb}
+\setul{0.5ex}{0.3ex}
+\definecolor{Blue}{rgb}{0.27843, 0.64313, 0.83921}
+\setulcolor{Blue}
 
 % hyperref makes references clicky. use \url{www.example.com} or \href{www.example.com}{description} to add a clicky url
 \usepackage{nameref,hyperref}
@@ -91,7 +94,7 @@
     \large at the \\
     \vspace{1cm}
 	\includegraphics[width=5cm]{Graving_IMPRS_Thesis/graphics/uni_logo.png}\\
-	\vspace{3cm}
+	\vspace{2cm}
 	\Large Faculty of Sciences \\
 	\Large Department of Biology \\
 	\vspace{2cm}
