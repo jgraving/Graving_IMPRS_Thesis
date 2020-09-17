@@ -1,0 +1,139 @@
+\documentclass[7pt,a4paper,oneside,fullpage]{report} % two-sided printing
+%\documentclass[7pt,a4paper,oneside,fullpage]{book} % one-sided printing
+
+\usepackage{setspace}
+\usepackage{ccicons}
+\usepackage{amsmath}
+\usepackage{apacite}
+\usepackage{dirtytalk}
+\usepackage{titlepic}
+\usepackage{graphicx}
+\usepackage[sort&compress,round]{natbib}
+\usepackage[labelfont=bf, labelsep=period, skip=10pt, aboveskip=10pt,labelfont=bf, singlelinecheck=off]{caption}
+\usepackage[margin=3cm]{geometry}
+\usepackage[english]{babel}
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{siunitx}
+\usepackage{relsize}
+\usepackage[toc,page]{appendix}
+\usepackage{array}
+\usepackage{mathtools}
+\usepackage{isomath}
+\usepackage{todonotes}
+\usepackage{gensymb}
+
+% set font for main text
+\usepackage{nimbussans}
+\renewcommand{\familydefault}{\sfdefault}
+
+% create blue underline for title
+\usepackage{color, soul}
+\setul{0.5ex}{0.3ex}
+\definecolor{Blue}{rgb}{0.27843, 0.64313, 0.83921}
+\setulcolor{Blue}
+
+% hyperref makes references clicky. use \url{www.example.com} or \href{www.example.com}{description} to add a clicky url
+\usepackage{nameref,hyperref}
+\usepackage{url}  % This makes \url work
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+%\usepackage{nohyperref}  % This makes hyperref commands do nothing without errors
+
+% IMPORTANT: set to draft mode to remove links for printing!
+%\hypersetup{draft}
+
+% use utf8 encoding for German characters
+\usepackage[utf8]{inputenc}
+
+% improves typesetting
+\usepackage{microtype}
+\DisableLigatures[f]{encoding = *, family = * }
+
+% define custom math operators
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+% define blank footnote for chapter titles
+\newcommand\blfootnote[1]{%
+  \begingroup
+  \renewcommand\thefootnote{}\footnote{#1}%
+  \addtocounter{footnote}{-1}%
+  \endgroup
+}
+
+% define blank page
+\def\blankpage{%
+      \clearpage%
+      \thispagestyle{empty}%
+      \addtocounter{page}{-1}%
+      \null%
+      \clearpage}
+
+\title{
+	\HUGE \ul{\textbf{Computer Vision and Deep Learning Methods for Measuring and Modeling Animal Behavior}} \\
+	\vspace{2.5cm}
+	\Large \textbf{Doctoral thesis for obtaining the} \\
+	\Large \textbf{academic degree} \\
+	\vspace{1cm}
+	\Large \textit{Doctor of Natural Sciences} \\
+	\Large \textit{Dr. rer. nat.} \\
+	\vspace{2cm}
+    \large submitted by \\
+    \vspace{0.5cm}
+    \Large Graving, Jacob M. \\
+    \vspace{1cm}
+    \large at the \\
+    \vspace{1cm}
+	\includegraphics[width=5cm]{graphics/uni_logo.png}\\
+	\vspace{2cm}
+	\Large Faculty of Sciences \\
+	\vspace{0.5cm}
+	\Large Department of Biology \\
+	\vspace{2cm}
+	\date{}
+	\begin{flushleft}
+	    \large Konstanz, 2020
+	\end{flushleft}
+	\clearpage
+	}
+
+\begin{document}
+\pagenumbering{gobble} % turn off page numbers
+\maketitle
+%\blankpage
+%\newpage
+\pagenumbering{roman} % use roman page numbers for front matter
+\setcounter{page}{1}
+\tableofcontents
+
+\begin{doublespace}
+    \include{summary}
+	\newpage
+	\pagenumbering{arabic} % switch to arabic page numbers for main text
+    \include{introduction}
+    \newpage 
+    \include{chapter1}
+    \newpage 
+    \include{chapter2}
+    \newpage 
+    \include{discussion}
+    \begin{appendices}
+        \include{chapter2_appendix}
+        \newpage
+        \include{chapter3_appendix}
+    \end{appendices}
+\end{doublespace} %turn off double space for references
+
+\nocite{*} % show all references in references.bib even if unused
+\bibliographystyle{apacite}
+\renewcommand{\bibname}{References}
+\bibliography{references.bib}
+\addcontentsline{toc}{chapter}{References}
+
+\begin{doublespace}
+    \include{acknowledgements}
+    \include{author_contributions}
+\end{doublespace}
+
+\end{document}
