@@ -23,6 +23,7 @@
 
 % set font for main text
 \usepackage{nimbussans}
+%\usepackage{utopia}
 \renewcommand{\familydefault}{\sfdefault}
 
 % create blue underline for title
@@ -89,18 +90,26 @@
 	\Large Faculty of Sciences \\
 	\vspace{0.5cm}
 	\Large Department of Biology \\
-    \vspace*{\fill}
+    \vspace{\fill}
     \date{}
 	\begin{flushleft}
-	    \large Konstanz, 2020
+	    \large Konstanz, 2021
 	\end{flushleft}
 	\clearpage}
 
 \begin{document}
 \pagenumbering{gobble} % turn off page numbers
 \maketitle
-%\blankpage
-%\newpage
+\vspace*{\fill}
+\begin{flushleft}
+    \large Date of examination: March 1, 2021 \\
+    \large 1. Reviewer: Iain Couzin \\
+    \large 2. Reviewer: Gordon Berman \\
+    \large 3. Reviewer: Martin Wikelski
+\end{flushleft}
+
+\newpage
+\newpage
 \pagenumbering{roman} % use roman page numbers for front matter
 \setcounter{page}{1}
 \tableofcontents
